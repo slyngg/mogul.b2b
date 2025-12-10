@@ -48,8 +48,13 @@ jobs:
       - name: Deploy to Production
         if: github.ref == 'refs/heads/main'
         run: |
+          echo "=== Debug: Check ssh-agent ==="
+          ssh-add -l
+          echo "=== Debug: Test SSH connection ==="
+          ssh -vvv -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'SSH OK'" 2>&1 | tail -30
+          echo "=== Running rsync ==="
           rsync -avz --delete \
-            -e "ssh -p 21098 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROD_PATH }}
 
@@ -57,7 +62,7 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: |
           rsync -avz --delete \
-            -e "ssh -p 21098 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEV_PATH }}
 
