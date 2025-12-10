@@ -35,29 +35,21 @@ jobs:
         env:
           NODE_ENV: development
 
-      - name: Setup SSH Key
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add known hosts
         run: |
           mkdir -p ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p 21098 -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
-          echo "=== Key file info ==="
-          ls -la ~/.ssh/deploy_key
-          head -1 ~/.ssh/deploy_key
-          tail -1 ~/.ssh/deploy_key
-          wc -l ~/.ssh/deploy_key
-          echo "=== Testing SSH connection ==="
-          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes -v ${{ secrets.SSH_USER }}@$SSH_HOST "echo 'SSH OK'" 2>&1 | head -50 || true
-          echo "SSH key setup complete"
+          ssh-keyscan -p 21098 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Deploy to Production
         if: github.ref == 'refs/heads/main'
         run: |
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 21098 -o StrictHostKeyChecking=no" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROD_PATH }}
 
@@ -65,21 +57,21 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: |
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 21098 -o StrictHostKeyChecking=no" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEV_PATH }}
 
       - name: Post-deployment - Clear cache (Production)
         if: github.ref == 'refs/heads/main'
         run: |
-          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no \
+          ssh -p 21098 -o StrictHostKeyChecking=no \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "find ${{ secrets.PROD_PATH }} -name '*.cache' -delete 2>/dev/null || true"
 
       - name: Post-deployment - Clear cache (Development)
         if: github.ref == 'refs/heads/dev'
         run: |
-          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no \
+          ssh -p 21098 -o StrictHostKeyChecking=no \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "find ${{ secrets.DEV_PATH }} -name '*.cache' -delete 2>/dev/null || true"
 
