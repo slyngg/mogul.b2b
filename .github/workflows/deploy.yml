@@ -36,17 +36,21 @@ jobs:
           NODE_ENV: development
 
       - name: Setup SSH Key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p 21098 -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          echo "SSH key setup complete"
 
       - name: Deploy to Production
         if: github.ref == 'refs/heads/main'
         run: |
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROD_PATH }}
 
@@ -54,21 +58,21 @@ jobs:
         if: github.ref == 'refs/heads/dev'
         run: |
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no" \
             ./dist/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEV_PATH }}
 
       - name: Post-deployment - Clear cache (Production)
         if: github.ref == 'refs/heads/main'
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "find ${{ secrets.PROD_PATH }} -name '*.cache' -delete 2>/dev/null || true"
 
       - name: Post-deployment - Clear cache (Development)
         if: github.ref == 'refs/heads/dev'
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "find ${{ secrets.DEV_PATH }} -name '*.cache' -delete 2>/dev/null || true"
 
