@@ -41,9 +41,16 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p 21098 -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -p 21098 -H $SSH_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          echo "=== Key file info ==="
+          ls -la ~/.ssh/deploy_key
+          head -1 ~/.ssh/deploy_key
+          tail -1 ~/.ssh/deploy_key
+          wc -l ~/.ssh/deploy_key
+          echo "=== Testing SSH connection ==="
+          ssh -i ~/.ssh/deploy_key -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes -v ${{ secrets.SSH_USER }}@$SSH_HOST "echo 'SSH OK'" 2>&1 | head -50 || true
           echo "SSH key setup complete"
 
       - name: Deploy to Production
