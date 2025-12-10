@@ -35,50 +35,27 @@ jobs:
         env:
           NODE_ENV: development
 
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Deploy to Production via FTP
+        if: github.ref == 'refs/heads/main'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ secrets.PROD_PATH }}/
+          dangerous-clean-slate: true
 
-      - name: Add known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p 21098 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
-
-      - name: Deploy to Production
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "=== Debug: Check ssh-agent ==="
-          ssh-add -l
-          echo "=== Debug: Test SSH connection ==="
-          ssh -vvv -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'SSH OK'" 2>&1 | tail -30
-          echo "=== Running rsync ==="
-          rsync -avz --delete \
-            -e "ssh -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes" \
-            ./dist/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROD_PATH }}
-
-      - name: Deploy to Development
+      - name: Deploy to Development via FTP
         if: github.ref == 'refs/heads/dev'
-        run: |
-          rsync -avz --delete \
-            -e "ssh -p 21098 -o StrictHostKeyChecking=no -o BatchMode=yes" \
-            ./dist/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEV_PATH }}
-
-      - name: Post-deployment - Clear cache (Production)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          ssh -p 21098 -o StrictHostKeyChecking=no \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "find ${{ secrets.PROD_PATH }} -name '*.cache' -delete 2>/dev/null || true"
-
-      - name: Post-deployment - Clear cache (Development)
-        if: github.ref == 'refs/heads/dev'
-        run: |
-          ssh -p 21098 -o StrictHostKeyChecking=no \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "find ${{ secrets.DEV_PATH }} -name '*.cache' -delete 2>/dev/null || true"
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ secrets.DEV_PATH }}/
+          dangerous-clean-slate: true
 
       - name: Deployment Summary
         run: |
