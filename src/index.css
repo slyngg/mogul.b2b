@@ -1,0 +1,378 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-mogul-dark text-white antialiased selection:bg-neon-blue selection:text-mogul-dark;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  }
+  
+  .text-glow-purple {
+    text-shadow: 0 0 10px rgba(112, 0, 255, 0.5);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCOPED VIEW TRANSITIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.98); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Page-specific transitions */
+.view-transitions-enabled [data-page] {
+  view-transition-name: page;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOGUL WATERMARK - Breathing Glow Effect
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes mogul-breathe {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(24, 119, 242, 0.4),
+      0 0 10px rgba(24, 119, 242, 0.3),
+      0 0 20px rgba(24, 119, 242, 0.2);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(24, 119, 242, 0.6),
+      0 0 20px rgba(24, 119, 242, 0.5),
+      0 0 40px rgba(24, 119, 242, 0.3),
+      0 0 60px rgba(24, 119, 242, 0.2);
+  }
+}
+
+.mogul-watermark .mogul-text {
+  color: #1877F2;
+  animation: mogul-breathe 3s ease-in-out infinite;
+}
+
+.mogul-watermark .built-by {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GRADIENT CONIC FOR BORDER ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bg-gradient-conic {
+  background: conic-gradient(from 0deg, var(--tw-gradient-stops));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MARQUEE ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FLASHLIGHT HOVER EFFECT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.flashlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.flashlight-card::before {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, 50%);
+  left: var(--mouse-x, 50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 240, 255, 0.15) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flashlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Border flashlight */
+.flashlight-border {
+  position: relative;
+}
+
+.flashlight-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 240, 255, 0.5) 0%,
+    transparent 50%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flashlight-border:hover::after {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3D TILT CARD EFFECT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+}
+
+.tilt-card-content {
+  transform: translateZ(20px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CLIP PATH ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes clip-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-clip-reveal {
+  animation: clip-reveal 1s ease-out forwards;
+}
+
+/* Column by column reveal */
+@keyframes column-reveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.animate-column-reveal {
+  animation: column-reveal 0.8s ease-out forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BLUR IN ANIMATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes blur-in {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.animate-blur-in {
+  animation: blur-in 0.6s ease-out forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BORDER BEAM ANIMATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes border-beam {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.border-beam {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+  offset-path: path('M 0 0 L 100 0 L 100 100 L 0 100 Z');
+  animation: border-beam 3s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLL DRIVEN ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@supports (animation-timeline: scroll()) {
+  .scroll-fade-in {
+    animation: scroll-fade linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  
+  @keyframes scroll-fade {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .scroll-scale {
+    animation: scroll-scale linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  
+  @keyframes scroll-scale {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ALPHA MASK FOR MARQUEE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mask-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f0ff, #7000ff);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00fff0, #00f0ff);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .mogul-watermark .mogul-text {
+    animation: none;
+    text-shadow: 
+      0 0 10px rgba(24, 119, 242, 0.5),
+      0 0 20px rgba(24, 119, 242, 0.3);
+  }
+}
