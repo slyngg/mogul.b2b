@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
-import { ArrowRight, Calendar, Play } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 // Animated Canvas Background
 const AnimatedCanvas = () => {
@@ -213,7 +213,7 @@ export const Hero = () => {
             <AnimatedText
               text="Dominate."
               delay={0.8}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue via-neon-purple to-neon-cyan"
+              className="text-white"
             />
           </div>
         </h1>
@@ -225,8 +225,8 @@ export const Hero = () => {
           transition={{ delay: 1.2, duration: 0.6 }}
           className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12"
         >
-          We engineer personalized business operating systems tailored to your vision.
-          <span className="text-white"> Replacing manual chaos with digital precision.</span>
+          We bring founder's visions to reality. Custom business systems built from scratch,
+          <span className="text-white"> or we fix the holes in your existing one.</span>
         </motion.p>
 
         {/* CTA Buttons */}
@@ -238,23 +238,20 @@ export const Hero = () => {
         >
           <Link
             to="/book-audit"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold rounded-xl overflow-hidden transition-all hover:scale-105"
+            className="group inline-flex items-center gap-2 px-8 py-4 bg-neon-blue text-black font-semibold rounded-xl transition-all hover:bg-neon-blue/90 hover:scale-105"
           >
-            {/* Border beam effect */}
-            <span className="absolute inset-0 overflow-hidden rounded-xl">
-              <span className="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-gradient-conic from-transparent via-white/30 to-transparent" />
-            </span>
-            <span className="relative flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
-              Book FREE Audit
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
+            <Calendar className="w-5 h-5" />
+            Book FREE Audit
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           
-          <button className="group inline-flex items-center gap-2 px-8 py-4 border border-white/20 rounded-xl hover:bg-white/5 transition-all hover:border-white/40">
-            <Play className="w-5 h-5" />
-            Watch Demo
-          </button>
+          <Link 
+            to="/case-studies"
+            className="group inline-flex items-center gap-2 px-8 py-4 border border-white/20 rounded-xl hover:bg-white/5 transition-all hover:border-white/40"
+          >
+            View Our Work
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
 
         {/* Stats Row */}

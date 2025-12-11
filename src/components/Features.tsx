@@ -15,31 +15,31 @@ import { Spotlight } from './Spotlight';
 
 const features = [
   {
-    id: 'automation',
-    title: 'Automated Workflows',
-    description: 'Eliminate manual tasks with intelligent automation. Our AI handles billing, reconciliation, and approvals seamlessly.',
+    id: 'fullstack',
+    title: 'Full-Stack Applications',
+    description: 'State-of-the-art technology with innovative automations. We build complete systems that handle everything from frontend to backend.',
     icon: Zap,
     color: 'from-neon-blue to-neon-cyan',
-    tags: ['Smart automation', 'Zero errors'],
-    cta: 'Discover more',
+    tags: ['SoTA tech', 'Custom builds'],
+    cta: 'Learn more',
   },
   {
-    id: 'ai',
-    title: 'AI Assistant',
-    description: 'Get instant answers to complex business questions. Our AI assistant provides summaries and guidance in real-time.',
+    id: 'automation',
+    title: 'Revenue on Autopilot',
+    description: 'Transform your manual business into a running engine. Generate revenue in your sleep with intelligent automation.',
     icon: Bot,
     color: 'from-neon-purple to-pink-500',
-    tags: ['Always available', 'Context-aware'],
-    cta: 'Try it now',
+    tags: ['24/7 operations', 'Passive income'],
+    cta: 'See how',
   },
   {
-    id: 'analytics',
-    title: 'Predictive Intelligence',
-    description: 'Forecast with confidence. Identify trends early for strategic planning and stay ahead of the competition.',
+    id: 'flexible',
+    title: 'Flexible Architecture',
+    description: 'Leverage our CORE platform, custom backends, or bring your own CRM subscription—we handle the migration and integration.',
     icon: BarChart3,
     color: 'from-green-400 to-emerald-500',
-    tags: ['Real-time insights', 'Data-driven'],
-    cta: 'View forecasts',
+    tags: ['CORE platform', 'BYO CRM'],
+    cta: 'Explore options',
   },
 ];
 
@@ -76,7 +76,7 @@ export const Features = () => {
               viewport={{ once: true }}
               className="text-neon-blue text-sm font-medium tracking-wider uppercase mb-4 block"
             >
-              Intelligent business automation
+              What We Build
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -85,9 +85,9 @@ export const Features = () => {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-bold"
             >
-              Transform your workflow<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
-                with AI-powered insights
+              Your vision,<br />
+              <span className="text-neon-blue">
+                engineered to scale
               </span>
             </motion.h2>
           </div>

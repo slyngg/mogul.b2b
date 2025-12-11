@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Calendar, Briefcase, Sparkles, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { name: 'Services', href: '/#services' },
-  { name: 'Case Studies', href: '/#case-studies' },
+  { name: 'Case Studies', href: '/case-studies' },
   { name: 'CORE', href: '/core', highlight: true },
   { name: 'Careers', href: '/careers' },
 ];
@@ -14,14 +13,92 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isMobileView = () =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+
+  const smoothScrollToTop = () =>
+    new Promise<void>((resolve) => {
+      if (typeof window === 'undefined' || typeof document === 'undefined') {
+        resolve();
+        return;
+      }
+
+      if (window.scrollY === 0) {
+        resolve();
+        return;
+      }
+
+      const supportsSmooth = 'scrollBehavior' in document.documentElement.style;
+      if (!supportsSmooth) {
+        window.scrollTo(0, 0);
+        resolve();
+        return;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      let previousY = window.scrollY;
+
+      const checkPosition = () => {
+        const currentY = window.scrollY;
+        if (currentY === 0 || Math.abs(previousY - currentY) < 1) {
+          resolve();
+          return;
+        }
+        previousY = currentY;
+        requestAnimationFrame(checkPosition);
+      };
+
+      requestAnimationFrame(checkPosition);
+    });
+
+  const runViewTransition = (callback: () => void) => {
+    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+      (document as Document & { startViewTransition?: (cb: () => void) => void }).startViewTransition?.(
+        callback
+      );
+    } else {
+      callback();
+    }
+  };
+
+  const navigateWithEffects = async (href: string) => {
+    if (isTransitioning) return;
+
+    if (href.startsWith('/#')) {
+      handleNavClick(href);
+      return;
+    }
+
+    setIsTransitioning(true);
+
+    if (isMobileView()) {
+      await smoothScrollToTop();
+    }
+
+    runViewTransition(() => navigate(href));
+    setIsTransitioning(false);
+  };
+
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    href: string
+  ) => {
+    if (href.startsWith('http') || href.startsWith('mailto')) return;
+    event.preventDefault();
+    navigateWithEffects(href);
+  };
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -70,6 +147,7 @@ export const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
+                onClick={(event) => handleLinkClick(event, link.href)}
                 className={`relative px-4 py-2 text-sm transition-colors rounded-lg ${
                   link.highlight 
                     ? 'text-neon-blue hover:text-neon-cyan' 
@@ -100,15 +178,11 @@ export const Navbar = () => {
           {/* CTA Button */}
           <Link
             to="/book-audit"
-            className="group relative ml-4 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-neon-blue to-neon-purple text-black text-sm font-semibold rounded-xl overflow-hidden transition-all hover:scale-105"
+            onClick={(event) => handleLinkClick(event, '/book-audit')}
+            className="ml-4 inline-flex items-center gap-2 px-5 py-2.5 bg-neon-blue text-black text-sm font-semibold rounded-xl transition-all hover:bg-neon-blue/90 hover:scale-105"
           >
-            <span className="absolute inset-0 overflow-hidden rounded-xl">
-              <span className="absolute inset-[-100%] animate-[spin_4s_linear_infinite] bg-gradient-conic from-transparent via-white/20 to-transparent" />
-            </span>
-            <span className="relative flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              Book Audit
-            </span>
+            <Calendar className="w-4 h-4" />
+            Book FREE Audit
           </Link>
         </div>
 
@@ -142,6 +216,7 @@ export const Navbar = () => {
                   {link.href.startsWith('/') && !link.href.startsWith('/#') ? (
                     <Link
                       to={link.href}
+                      onClick={(event) => handleLinkClick(event, link.href)}
                       className={`flex items-center justify-between p-4 rounded-xl transition-colors ${
                         link.highlight 
                           ? 'bg-neon-blue/10 text-neon-blue' 
@@ -151,6 +226,7 @@ export const Navbar = () => {
                       <span className="flex items-center gap-3">
                         {link.name === 'CORE' && <Sparkles className="w-5 h-5" />}
                         {link.name === 'Careers' && <Briefcase className="w-5 h-5" />}
+                        {link.name === 'Case Studies' && <span className="w-5 h-5" />}
                         {link.name}
                       </span>
                       <ChevronRight className="w-5 h-5 opacity-50" />
@@ -176,7 +252,8 @@ export const Navbar = () => {
               >
                 <Link
                   to="/book-audit"
-                  className="flex items-center justify-center gap-2 w-full p-4 bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold rounded-xl"
+                  onClick={(event) => handleLinkClick(event, '/book-audit')}
+                  className="flex items-center justify-center gap-2 w-full p-4 bg-neon-blue text-black font-semibold rounded-xl"
                 >
                   <Calendar className="w-5 h-5" />
                   Book FREE Audit

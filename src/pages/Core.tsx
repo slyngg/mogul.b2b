@@ -18,6 +18,7 @@ import {
   Play
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { MobileExperience } from '../components/MobileExperience';
 
 const features = [
   {
@@ -67,6 +68,49 @@ const contextSources = [
   'Industry benchmarks'
 ];
 
+const contextTiers = [
+  {
+    title: 'TIER 1: FOUNDATIONAL CONTEXT',
+    layers: ['Identity Context', 'Domain Context', 'Temporal Context', 'Behavioral Context', 'Data Context'],
+    color: 'from-blue-500 to-cyan-500'
+  },
+  {
+    title: 'TIER 2: COGNITIVE CONTEXT',
+    layers: ['Intent Context', 'Environmental Context', 'Emotional Context', 'Relational Context', 'Predictive Context'],
+    color: 'from-cyan-500 to-teal-500'
+  },
+  {
+    title: 'TIER 3: STRATEGIC CONTEXT',
+    layers: ['Historical Context', 'Competitive Context', 'Financial Context', 'Technical Context', 'Strategic Context'],
+    color: 'from-teal-500 to-green-500'
+  },
+  {
+    title: 'TIER 4: OPERATIONAL CONTEXT',
+    layers: ['Cultural Context', 'Legal Context', 'Performance Context', 'Learning Context', 'Risk Context'],
+    color: 'from-green-500 to-emerald-500'
+  },
+  {
+    title: 'TIER 5: ENTERPRISE INTELLIGENCE',
+    layers: ['Hierarchical Context', 'Collaborative Context', 'Process Context', 'Stakeholder Context', 'Ecosystem Context'],
+    color: 'from-emerald-500 to-yellow-500'
+  },
+  {
+    title: 'TIER 6: ADVANCED INTELLIGENCE',
+    layers: ['Account Hierarchy Context', 'Team Analytics Context', 'Calendar Intelligence Context', 'Project Management Context', 'Tax Intelligence Context'],
+    color: 'from-yellow-500 to-orange-500'
+  },
+  {
+    title: 'TIER 7: OPERATIONAL EXCELLENCE',
+    layers: ['ERP Operations Context', 'Finance Management Context', 'Integration Health Context', 'Automation Intelligence Context', 'Compliance Monitoring Context'],
+    color: 'from-orange-500 to-red-500'
+  },
+  {
+    title: 'TIER 8: ADVANCED OPERATIONAL INTELLIGENCE',
+    layers: ['Document Intelligence', 'Communication Intelligence', 'Automation Telemetry', 'Integration Observability', 'Executive Resilience & Wellbeing'],
+    color: 'from-red-500 to-purple-500'
+  }
+];
+
 export const Core = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -78,8 +122,12 @@ export const Core = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   return (
-    <div ref={containerRef} className="min-h-screen">
-      {/* Hero Section */}
+    <>
+      <div className="md:hidden">
+        <MobileExperience />
+      </div>
+      <div ref={containerRef} className="hidden md:block min-h-screen">
+        {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
@@ -379,6 +427,49 @@ export const Core = () => {
         </div>
       </section>
 
+      {/* Context System Tiers */}
+      <section className="py-24 relative">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              CORE Context System
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              A multi-layered intelligence framework that provides deep understanding across every dimension of your business.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {contextTiers.map((tier, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-mogul-card border border-white/5 rounded-xl p-6 hover:border-white/20 transition-all group"
+              >
+                <div className={`h-1 w-full bg-gradient-to-r ${tier.color} rounded-full mb-4 opacity-50 group-hover:opacity-100 transition-opacity`} />
+                <h3 className="text-sm font-bold text-gray-300 mb-4 tracking-wider uppercase">{tier.title}</h3>
+                <ul className="space-y-2">
+                  {tier.layers.map((layer, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-400">
+                      <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${tier.color} mt-1.5 flex-shrink-0`} />
+                      {layer}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Voice Commands */}
       <section className="py-24 relative">
         <div className="container mx-auto px-6">
@@ -479,6 +570,7 @@ export const Core = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };

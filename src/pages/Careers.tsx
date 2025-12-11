@@ -14,6 +14,7 @@ import {
   Trophy,
   Flame
 } from 'lucide-react';
+import { MobileCareersExperience } from '../components/MobileCareersExperience';
 
 interface ApplicationData {
   fullName: string;
@@ -132,7 +133,11 @@ ${formData.proofOfPerformance}
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <>
+      <div className="md:hidden">
+        <MobileCareersExperience />
+      </div>
+      <div className="hidden md:block min-h-screen pt-24 pb-16">
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-neon-purple/10 rounded-full blur-[128px]" />
@@ -422,6 +427,7 @@ ${formData.proofOfPerformance}
           </motion.div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };

@@ -5,33 +5,23 @@ import { Twitter, Linkedin, Instagram, Mail, ArrowRight, Send } from 'lucide-rea
 const footerLinks = {
   product: [
     { name: 'CORE Platform', href: '/core' },
-    { name: 'Features', href: '/#services' },
-    { name: 'Pricing', href: '/#pricing' },
-    { name: 'Case Studies', href: '/#case-studies' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Book FREE Audit', href: '/book-audit' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: 'mailto:info@mogul.b2b' },
-  ],
-  resources: [
-    { name: 'Documentation', href: '/docs' },
-    { name: 'Help Center', href: '/help' },
-    { name: 'API Reference', href: '/api' },
-    { name: 'Status', href: '/status' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
   ],
 };
 
 const socialLinks = [
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/mogulb2b' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/company/mogulb2b' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/mogulb2b' },
+  { name: 'X', icon: Twitter, href: 'https://x.com/mogulsolution' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/in/mogulsolution/' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/mogulsolutions' },
 ];
 
 export const Footer = () => {
@@ -85,7 +75,7 @@ export const Footer = () => {
                 </div>
                 <button
                   type="submit"
-                  className="px-6 py-4 bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2"
+                  className="px-6 py-4 bg-neon-blue text-black font-semibold rounded-xl hover:bg-neon-blue/90 transition-all flex items-center gap-2"
                 >
                   {isSubscribed ? (
                     'Subscribed!'
@@ -203,24 +193,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Resources Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Resources</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-1 group"
-                  >
-                    {link.name}
-                    <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Legal Links */}
           <div>
             <h4 className="font-semibold text-white mb-4">Legal</h4>
@@ -243,7 +215,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} Mogul Systems Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Mogul LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-gray-500">
             <span className="flex items-center gap-2">

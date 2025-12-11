@@ -56,25 +56,20 @@ export const CTASection = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   to="/book-audit"
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold rounded-xl overflow-hidden"
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-neon-blue text-black font-semibold rounded-xl transition-all hover:bg-neon-blue/90 hover:scale-105"
                 >
-                  {/* Border Beam Animation */}
-                  <span className="absolute inset-0 overflow-hidden rounded-xl">
-                    <span className="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-gradient-conic from-transparent via-white/30 to-transparent" />
-                  </span>
-                  <span className="relative flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    Book FREE Audit
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  <Calendar className="w-5 h-5" />
+                  Book FREE Audit
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
 
-                <a
-                  href="mailto:info@mogul.b2b"
+                <Link
+                  to="/case-studies"
                   className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 rounded-xl hover:bg-white/5 transition-colors"
                 >
-                  Contact Sales
-                </a>
+                  View Our Work
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
 
               {/* Trust Indicators */}

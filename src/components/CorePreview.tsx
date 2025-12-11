@@ -50,9 +50,12 @@ export const CorePreview = () => {
               </span>
             </h2>
 
-            <p className="text-xl text-gray-400 mb-8">
+            <p className="text-xl text-gray-400 mb-4">
               CORE combines CRM, ERP, and Project Management with native AI capabilities. 
               It knows what needs to be done before it ever even happens.
+            </p>
+            <p className="text-sm text-gray-500 mb-8 italic">
+              * Concept preview — full product demo available during your audit call
             </p>
 
             {/* Feature Pills */}
@@ -75,16 +78,16 @@ export const CorePreview = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/core"
-                className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold rounded-xl hover:opacity-90 transition-opacity"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-neon-blue text-black font-semibold rounded-xl hover:bg-neon-blue/90 transition-all"
               >
-                Explore CORE
+                Learn About CORE
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/book-audit"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 rounded-xl hover:bg-white/5 transition-colors"
               >
-                Get Early Access
+                See Live Demo
               </Link>
             </div>
           </motion.div>

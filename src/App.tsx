@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { BookAudit } from './pages/BookAudit';
 import { Careers } from './pages/Careers';
 import { Core } from './pages/Core';
+import { CaseStudies } from './pages/CaseStudies';
 import { CustomCursor } from './components/CustomCursor';
 import { useEffect } from 'react';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/book-audit" element={<BookAudit />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/core" element={<Core />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
         </Routes>
         <Footer />
       </div>
