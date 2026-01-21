@@ -1,5 +1,4 @@
 {
-  "password": "mogul.b2b",
   "rewrites": [
     {
       "source": "/(.*)",
