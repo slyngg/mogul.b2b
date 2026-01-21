@@ -34,25 +34,32 @@ export const BookAudit = () => {
 
   // Load Cal.com embed script
   useEffect(() => {
-    // Check if Cal is already loaded
-    if ((window as any).Cal) {
-      setCalLoaded(true);
-      return;
-    }
+    (function (C: any, A: string, L: string) {
+      const p = function (a: any, ar: any) { a.q.push(ar); };
+      const d = C.document;
+      C.Cal = C.Cal || function () {
+        const cal = C.Cal;
+        const ar = arguments;
+        if (!cal.loaded) {
+          cal.q = cal.q || [];
+          p(cal, ar);
+        } else {
+          p(cal, ar);
+        }
+      };
+      if (C.Cal.ns) return;
+      C.Cal.ns = L;
+      C.Cal.q = C.Cal.q || [];
 
-    const script = document.createElement('script');
-    script.src = 'https://app.cal.com/embed/embed.js';
-    script.async = true;
-    script.onload = () => {
-      setCalLoaded(true);
-      // Initialize Cal embed
-      (window as any).Cal?.('init', { origin: 'https://cal.com' });
-    };
-    document.head.appendChild(script);
-
-    return () => {
-      // Cleanup if needed
-    };
+      const script = d.createElement('script');
+      script.src = A;
+      script.async = true;
+      script.onload = () => {
+        setCalLoaded(true);
+        C.Cal?.('init', { origin: 'https://cal.com' });
+      };
+      d.head.appendChild(script);
+    })(window, "https://app.cal.com/embed/embed.js", "Cal");
   }, []);
 
   return (
