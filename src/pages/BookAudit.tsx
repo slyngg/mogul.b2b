@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Check, 
+import {
+  ArrowRight,
+  Check,
   Calendar,
   Clock,
   CheckCircle2,
@@ -88,7 +88,7 @@ export const BookAudit = () => {
             transition={{ delay: 0.2 }}
             className="text-gray-400 text-lg max-w-2xl mx-auto"
           >
-            Let's identify the holes in your business and build a roadmap to fix them—or 
+            Let's identify the holes in your business and build a roadmap to fix them—or
             create something entirely new from scratch.
           </motion.p>
         </div>
@@ -101,7 +101,7 @@ export const BookAudit = () => {
             transition={{ delay: 0.3 }}
           >
             <h2 className="text-2xl font-bold mb-8">What You'll Get</h2>
-            
+
             <div className="space-y-6 mb-12">
               {benefits.map((benefit, index) => (
                 <motion.div
@@ -162,9 +162,9 @@ export const BookAudit = () => {
             className="bg-mogul-card border border-white/10 rounded-3xl p-6 md:p-8"
           >
             <h2 className="text-xl font-bold mb-6 text-center">Select a Time</h2>
-            
+
             {/* Cal.com Embed Container */}
-            <div 
+            <div
               className="min-h-[500px] rounded-xl overflow-hidden"
               style={{ backgroundColor: '#0a0a0f' }}
             >
@@ -174,11 +174,11 @@ export const BookAudit = () => {
                 Example: 'mogul/free-audit'
               */}
               <div
-                data-cal-link="cal.com/mogulb2b/free-audit"
+                data-cal-link="mogulb2b/free-audit"
                 data-cal-config='{"theme":"dark"}'
                 style={{ width: '100%', height: '100%', minHeight: '500px' }}
               />
-              
+
               {!calLoaded && (
                 <div className="flex items-center justify-center h-[500px]">
                   <div className="text-center">
@@ -192,9 +192,9 @@ export const BookAudit = () => {
             {/* Fallback Link */}
             <p className="text-center text-gray-500 text-sm mt-4">
               Having trouble?{' '}
-              <a 
-                href="https://cal.com/mogul/free-audit" 
-                target="_blank" 
+              <a
+                href="https://cal.com/mogulb2b/free-audit"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-neon-blue hover:text-neon-cyan transition-colors"
               >
