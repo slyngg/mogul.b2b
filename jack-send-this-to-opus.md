@@ -1,0 +1,33 @@
+Technical Specification: LeadLens V2.0 Integration & UpgradeDate: January 21, 2026To: Lead Development TeamFrom: Cayden Michael Moretti (Mogul / Core Operations)Subject: LeadLens Architecture Upgrade for "coreOS" Automation Compatibility1. Executive SummaryWe are integrating LeadLens (our internal scraper) with coreOS (our automation engine). The goal is to automate outreach via SMS, Email, and DM.The Problem: The current data set is descriptive (who they are) but lacks sufficient operational context (what is broken in their business). Furthermore, the current scraping process requires manual triggering.The Objective: LeadLens must evolve into an Autonomous "Pain Point" Detector. It needs to programmatically identify outdated booking flows, broken forms, and security risks, while intelligently rotating through niches and locations to ensure zero duplicates.2. Required Data Point Expansion (New Fields)We need to add the following detection logic to the scraper. These fields will directly trigger specific "Solution Hooks" in the coreOS automated messaging.A. Booking System Detection (High Priority)Goal: Identify if the client is losing money due to manual booking processes.Logic: Scan homepage and /contact pages for specific keywords or href attributes.New Fields:bookingMethod: (Enum: Software, Form, Email, Phone, None)detectedBookingSoftware: (String: e.g., "Calendly", "Acuity", "Mindbody", or null)isManualBooking: (Boolean: True if only mailto: or tel: is found near "Book Now" buttons).Why: If isManualBooking is true, coreOS sends the "Automated Booking System" pitch.B. Mobile & Communication ValidationGoal: Determine if we can send an SMS or if we must fallback to Email.Logic: Integrate a basic HLR lookup or library (like libphonenumber) to validate line type.New Fields:phoneType: (Enum: Mobile, Landline, VoIP)isSmsCapable: (Boolean)Why: coreOS "Smart Router" will skip SMS if phoneType == Landline.C. "Pain Point" Triggers (The Hooks)Goal: Find "ugly" or "broken" elements to mention in the audit.Logic:Copyright Check: Scan footer text for old years (e.g., "© 2021" or older).Performance Check: (Already partially done with mobileScore, but need a flag).Broken Links: Quick crawl of Homepage internal links (404 checks).New Fields:siteCopyrightYear: (Integer)hasOutdatedFooter: (Boolean: True if year < CurrentYear - 2)pageLoadSpeed: (Integer: ms)brokenLinksCount: (Integer)3. Data Normalization Standards (Strict)The current raw data is too loose for automation. coreOS requires strict formatting to prevent script errors.FieldCurrent StateRequired Format (V2)Reasonphone(555) 123-4567+15551234567 (E.164)Required for Twilio/SMS API.nameJohn SmithfirstName: "John", lastName: "Smith""Hi John" is better than "Hi John Smith".websitewww.site.comhttps://www.site.comEnsures clickable links in reports.socialsyes/noinstagramHandle: "@username"Needed for DM automation.4. The "Lead Score" Algorithm V2The current leadScore needs to be weighted based on "Helpability." We want to target businesses that have money but bad systems.Formula Logic:Base Score: 50+20 Points: isManualBooking is TRUE (Huge pain point = Easy sale).+10 Points: phoneType is MOBILE (High contact rate).+10 Points: hasInstagram is TRUE (Omni-channel capable).-10 Points: cmsDetected is "Wix" or "Squarespace" (Harder to migrate than custom/WP).+15 Points: hasSsl is FALSE (Security risk pitch).Output: leadScore (0-100).80+ = Hot (Instant SMS + Email)50-79 = Warm (Email Nurture)<50 = Cold (Ignore)5. Webhook Integration (The Handoff)LeadLens must push data to coreOS via a JSON POST Webhook. The scraper should run in batches and push immediately upon completion.Target Payload Structure (JSON):JSON{
+  "batch_id": "LL_20260121_A",
+  "timestamp": "2026-01-21T10:00:00Z",
+  "lead_profile": {
+    "identity": {
+      "first_name": "Sarah",
+      "last_name": "Connor",
+      "company_name": "Tech Noir Solutions"
+    },
+    "contact": {
+      "mobile": "+17025550199",
+      "email": "sarah@technoir.com",
+      "instagram_handle": "@technoir_official",
+      "sms_capable": true
+    },
+    "tech_audit": {
+      "cms": "WordPress",
+      "booking_system": "Contact Form 7",
+      "is_manual_booking": true,
+      "security_score": "Low (No SSL)",
+      "outdated_footer": true
+    },
+    "assets": {
+      "hero_image_url": "https://technoir.com/header.jpg",
+      "logo_url": "https://technoir.com/logo.png"
+    },
+    "meta": {
+      "lead_score": 85,
+      "primary_pain_point": "Manual Booking Flow"
+    }
+  }
+}
+6. Autonomous Search & Rotation Engine (CRITICAL)Requirement: The scraper must not be a manual "run once" tool. It must be an Infinite Engine that runs in the background based on a "Queue Stack."A. Configuration Interface (The Settings)The scraper settings must allow us to define specific Arrays for rotation.TargetLocations: ["Las Vegas, NV", "Henderson, NV", "Summerlin, NV", "Los Angeles, CA"]TargetNiches: ["Dentist", "Plumber", "HVAC", "Med Spa", "Real Estate Agent"]DailyLimit: 50 (To prevent spam flagging)PayloadBatchSize: 10 (Webhooks fired per batch)B. The "Smart Rotation" AlgorithmLeadLens must maintain a State of what has been exhausted to prevent infinite loops on the same data.Logic Flow:Start: Pick Location[0] (e.g., Las Vegas) AND Niche[0] (e.g., Dentist).Execute: Scrape all results.Check: Are there more results for "Dentist in Las Vegas"?If Yes: Continue scraping next page.If No (Exhausted): Switch Niche to Niche[1] (Plumber) but keep Location[0] (Las Vegas).Check Global Exhaustion:If ALL Niches are exhausted in Location[0]: Switch Location to Location[1] (California) and reset Niche index to [0].C. The Deduplication Layer (Global Blacklist)To ensure we never spam the same business twice, LeadLens must maintain a local database table scraped_history.Before adding a lead to the Webhook Payload:Check: Does Domain exist in scraped_history? OR Does Phone exist in scraped_history?If Yes: DROP the lead immediately (Do not send to coreOS).If No: Add to payload and save to scraped_history with date_scraped.7. Developer Action PlanModify Scraper Core: Implement the "Booking Detection" and "Phone Type" logic immediately.Build Rotation Engine: Implement the State Machine described in Section 6 (Niche/Location switching).Update Database: Alter the LeadLens DB schema to accept the new fields (firstName, lastName, isManualBooking, phoneType) and create the scraped_history table for deduplication.Build Webhook Trigger: Create a function to POST the standardized JSON above to the coreOS endpoint.

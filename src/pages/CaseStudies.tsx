@@ -35,6 +35,29 @@ const caseStudies = [
     },
     featured: true,
   },
+  {
+    id: 'leshore',
+    client: 'Mike Leshore Audio Vault',
+    logo: null,
+    industry: 'Music & E-commerce',
+    url: 'https://leshore.co',
+    headline: 'Premium Beat Licensing Platform with WCAG AAA-Compliant Admin',
+    description: 'We built the Mike Leshore Audio Vault—a premium beat-licensing platform featuring a sleek marketing storefront and "MikeOS" admin panel focused on accessibility and clarity. The platform includes a responsive BeatGrid with filtering, global audio player, 4-tier licensing system, and a signature 3-step upload wizard that auto-validates ZIP packages and extracts metadata.',
+    challenge: 'The client needed a complete beat licensing ecosystem: a storefront for artists to discover and purchase beats with instant preview, plus a WCAG AAA-compliant admin panel that a non-technical producer could use to upload, validate, and manage beats with zero manual QA.',
+    solution: 'We engineered a full-stack Next.js 16 application with TypeScript, Tailwind, MongoDB, AWS S3/Cloudflare R2 storage, Clerk auth, and Stripe payments. The 3-step upload wizard validates Master ZIP packages, auto-extracts BPM/key from filenames, and uploads to S3 with real-time progress. Zustand powers a persistent global audio player for uninterrupted browsing.',
+    results: [
+      { metric: 'Accessibility', value: 'AAA', icon: Zap },
+      { metric: 'License Tiers', value: '4', icon: Users },
+      { metric: 'Auto QA', value: '100%', icon: TrendingUp },
+      { metric: 'Upload Steps', value: '3', icon: Clock },
+    ],
+    testimonial: {
+      quote: "Go buy your beats now! The platform Mogul built makes selling beats effortless with zero manual work.",
+      author: 'Mike Leshore',
+      company: 'LeShore'
+    },
+    featured: false,
+  },
 ];
 
 export const CaseStudies = () => {
@@ -173,6 +196,60 @@ export const CaseStudies = () => {
             </div>
           </motion.div>
         ))}
+
+        {/* Additional Case Studies */}
+        {caseStudies.filter(cs => !cs.featured).length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-16"
+          >
+            <h2 className="text-2xl font-bold mb-8">More Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {caseStudies.filter(cs => !cs.featured).map((study) => (
+                <div 
+                  key={study.id}
+                  className="bg-mogul-card border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all group"
+                >
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        {study.logo ? (
+                          <img src={study.logo} alt={study.client} className="h-8 mb-2" />
+                        ) : (
+                          <h3 className="text-xl font-bold group-hover:text-neon-blue transition-colors">{study.client}</h3>
+                        )}
+                        <p className="text-sm text-gray-400">{study.industry}</p>
+                      </div>
+                      <a
+                        href={study.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                    
+                    <h4 className="text-lg font-semibold mb-3">{study.headline}</h4>
+                    <p className="text-gray-400 text-sm mb-6">{study.description}</p>
+                    
+                    <div className="grid grid-cols-4 gap-2">
+                      {study.results.map((result, i) => (
+                        <div key={i} className="text-center">
+                          <result.icon className="w-4 h-4 mx-auto mb-1 text-neon-blue" />
+                          <div className="text-sm font-bold text-white">{result.value}</div>
+                          <div className="text-[10px] text-gray-500">{result.metric}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* CTA Section */}
         <motion.div

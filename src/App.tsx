@@ -6,6 +6,8 @@ import { BookAudit } from './pages/BookAudit';
 import { Careers } from './pages/Careers';
 import { Core } from './pages/Core';
 import { CaseStudies } from './pages/CaseStudies';
+import { Privacy } from './pages/Privacy';
+import { Terms } from './pages/Terms';
 import { CustomCursor } from './components/CustomCursor';
 import { useEffect } from 'react';
 
@@ -28,6 +30,8 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/core" element={<Core />} />
           <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
         <Footer />
       </div>

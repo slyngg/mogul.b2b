@@ -165,11 +165,11 @@ export const Features = () => {
                 </a>
               </motion.div>
 
-              {/* Active Indicator */}
+              {/* Active Indicator - subtle glow outline only, no fill */}
               {index === activeIndex && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.color} opacity-5`}
+                  className="absolute inset-0 rounded-2xl border-2 border-neon-blue/40 pointer-events-none"
                 />
               )}
             </Spotlight>
