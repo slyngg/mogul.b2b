@@ -190,22 +190,16 @@ export const BookAudit = () => {
 
             {/* Cal.com Embed Container */}
             <div
-              className="min-h-[500px] rounded-xl overflow-hidden"
+              className="min-h-[500px] rounded-xl overflow-hidden relative"
               style={{ backgroundColor: '#0a0a0f' }}
             >
-              {/* 
-                Cal.com Inline Embed
-                Replace 'YOUR_CAL_USERNAME/YOUR_EVENT' with your actual Cal.com link
-                Example: 'mogul/free-audit'
-              */}
               <div
-                data-cal-link="mogulb2b/free-audit"
-                data-cal-config='{"theme":"dark"}'
+                id="cal-embed"
                 style={{ width: '100%', height: '100%', minHeight: '500px' }}
               />
 
               {!calLoaded && (
-                <div className="flex items-center justify-center h-[500px]">
+                <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0f]">
                   <div className="text-center">
                     <div className="w-8 h-8 border-2 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin mx-auto mb-4" />
                     <p className="text-gray-400 text-sm">Loading calendar...</p>
