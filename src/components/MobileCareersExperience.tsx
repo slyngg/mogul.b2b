@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { 
   ArrowRight, 
@@ -19,7 +18,7 @@ import {
 
 const SnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
-    <section className={`min-h-screen w-full snap-start flex flex-col items-center justify-center p-6 pt-24 pb-12 relative overflow-hidden ${className}`}>
+    <section className={`h-[100dvh] w-full snap-start snap-always flex flex-col items-center justify-center p-6 relative overflow-hidden ${className}`}>
       {children}
     </section>
   );
@@ -108,20 +107,11 @@ ${formData.proofOfPerformance}
 
   if (isSubmitted) {
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-mogul-dark text-white p-6 md:hidden">
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="text-center"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center"
-          >
+      <div className="h-[100dvh] w-full flex items-center justify-center bg-mogul-dark text-white p-6 md:hidden">
+        <div className="text-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center">
             <CheckCircle2 className="w-10 h-10 text-white" />
-          </motion.div>
+          </div>
           <h1 className="text-2xl font-bold mb-3">Application Sent!</h1>
           <p className="text-gray-400 text-sm mb-6">
             Your email client should have opened. Send the email to complete your submission.
@@ -133,32 +123,22 @@ ${formData.proofOfPerformance}
             Back to Home
             <ArrowRight className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-mogul-dark text-white md:hidden">
+    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory overscroll-none bg-mogul-dark text-white md:hidden">
       
       {/* SECTION 1: HERO */}
       <SnapSection className="bg-mogul-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-500/10 via-transparent to-transparent opacity-50" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-10 text-center w-full"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 mb-6"
-          >
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-500/5 to-transparent" />
+        <div className="relative z-10 text-center w-full">
+          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 mb-6">
             <Flame className="w-4 h-4 text-orange-500" />
             <span className="text-xs text-orange-500">Recruiting 4-8 Top Performers</span>
-          </motion.div>
+          </div>
 
           <h1 className="text-3xl font-bold leading-tight mb-4">
             We Don't Hire.{' '}
@@ -190,22 +170,15 @@ ${formData.proofOfPerformance}
             </div>
           </div>
 
-          <motion.div 
-            animate={{ y: [0, 10, 0] }} 
-            transition={{ duration: 2, repeat: Infinity }}
-          >
+          <div className="animate-bounce">
             <ArrowRight className="w-6 h-6 mx-auto transform rotate-90 text-orange-500" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </SnapSection>
 
       {/* SECTION 2: COMPENSATION */}
       <SnapSection className="bg-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <div className="flex items-center justify-center gap-2 mb-6">
             <Trophy className="w-5 h-5 text-yellow-500" />
             <h2 className="text-xl font-bold">Elite Rewards</h2>
@@ -213,11 +186,8 @@ ${formData.proofOfPerformance}
 
           <div className="space-y-3 mb-6">
             {compensation.map((comp, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ x: -50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
                 className="bg-mogul-card border border-white/10 rounded-xl p-4"
               >
                 <div className="flex items-center justify-between">
@@ -230,7 +200,7 @@ ${formData.proofOfPerformance}
                   </div>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${comp.color} opacity-20`} />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -243,7 +213,7 @@ ${formData.proofOfPerformance}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 3: ROLE & REQUIREMENTS */}
@@ -253,10 +223,10 @@ ${formData.proofOfPerformance}
 
           <div className="space-y-3">
             {/* Role */}
-            <motion.div layout>
+            <div>
               <button
                 onClick={() => setExpandedSection(expandedSection === 'role' ? null : 'role')}
-                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4"
+                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
               >
                 <div className="w-10 h-10 rounded-lg bg-neon-blue/10 flex items-center justify-center text-neon-blue">
                   <Target className="w-5 h-5" />
@@ -265,34 +235,25 @@ ${formData.proofOfPerformance}
                   <h4 className="font-bold text-sm">Your Role</h4>
                   <p className="text-xs text-gray-400">Daily responsibilities</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedSection === 'role' ? 'rotate-90' : ''}`} />
+                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedSection === 'role' ? 'rotate-90' : ''}`} />
               </button>
-              <AnimatePresence>
-                {expandedSection === 'role' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-neon-blue/5 border border-neon-blue/20 rounded-xl p-4 mt-2 space-y-2">
-                      {roleDetails.map((item, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                          <Zap className="w-4 h-4 text-neon-blue flex-shrink-0" />
-                          {item}
-                        </div>
-                      ))}
+              {expandedSection === 'role' && (
+                <div className="bg-neon-blue/5 border border-neon-blue/20 rounded-xl p-4 mt-2 space-y-2">
+                  {roleDetails.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Zap className="w-4 h-4 text-neon-blue flex-shrink-0" />
+                      {item}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Requirements */}
-            <motion.div layout>
+            <div>
               <button
                 onClick={() => setExpandedSection(expandedSection === 'requirements' ? null : 'requirements')}
-                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4"
+                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
               >
                 <div className="w-10 h-10 rounded-lg bg-neon-purple/10 flex items-center justify-center text-neon-purple">
                   <Shield className="w-5 h-5" />
@@ -301,28 +262,19 @@ ${formData.proofOfPerformance}
                   <h4 className="font-bold text-sm">Non-Negotiables</h4>
                   <p className="text-xs text-gray-400">Must-have qualifications</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedSection === 'requirements' ? 'rotate-90' : ''}`} />
+                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedSection === 'requirements' ? 'rotate-90' : ''}`} />
               </button>
-              <AnimatePresence>
-                {expandedSection === 'requirements' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-neon-purple/5 border border-neon-purple/20 rounded-xl p-4 mt-2 space-y-2">
-                      {requirements.map((req, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                          <Check className="w-4 h-4 text-neon-purple flex-shrink-0" />
-                          {req}
-                        </div>
-                      ))}
+              {expandedSection === 'requirements' && (
+                <div className="bg-neon-purple/5 border border-neon-purple/20 rounded-xl p-4 mt-2 space-y-2">
+                  {requirements.map((req, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-neon-purple flex-shrink-0" />
+                      {req}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <p className="text-center text-gray-500 text-xs mt-6">
@@ -332,12 +284,8 @@ ${formData.proofOfPerformance}
       </SnapSection>
 
       {/* SECTION 4: APPLICATION */}
-      <SnapSection className="bg-gradient-to-b from-mogul-dark to-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+      <SnapSection className="bg-mogul-navy">
+        <div className="w-full">
           {!showForm ? (
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-neon-purple/10 flex items-center justify-center">
@@ -437,7 +385,7 @@ ${formData.proofOfPerformance}
               </button>
             </form>
           )}
-        </motion.div>
+        </div>
       </SnapSection>
     </div>
   );

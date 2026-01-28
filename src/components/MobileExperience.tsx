@@ -1,7 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
-import { Player } from '@lottiefiles/react-lottie-player';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Brain, 
   MessageSquare, 
@@ -25,7 +23,7 @@ import {
 
 const SnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
-    <section className={`min-h-screen w-full snap-start flex flex-col items-center justify-center p-6 pt-24 pb-12 relative overflow-hidden ${className}`}>
+    <section className={`h-[100dvh] w-full snap-start snap-always flex flex-col items-center justify-center p-6 relative overflow-hidden ${className}`}>
       {children}
     </section>
   );
@@ -42,38 +40,28 @@ const GlassModal = ({
   children: React.ReactNode; 
   title: string;
 }) => {
+  if (!isOpen) return null;
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-sm bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl max-h-[80vh] overflow-y-auto"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
+      onClick={onClose}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-sm bg-mogul-card border border-white/20 rounded-2xl p-6 shadow-2xl max-h-[80vh] overflow-y-auto"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-white">{title}</h3>
+          <button 
+            onClick={onClose}
+            className="p-1 rounded-full active:bg-white/10 transition-colors"
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-white">{title}</h3>
-              <button 
-                onClick={onClose}
-                className="p-1 rounded-full hover:bg-white/10 transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-400" />
-              </button>
-            </div>
-            {children}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            <X className="w-5 h-5 text-gray-400" />
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
   );
 };
 
@@ -126,7 +114,6 @@ const featureDetails = {
   }
 };
 
-const signalPulseAnimation = 'https://assets10.lottiefiles.com/packages/lf20_jk6c1n2n.json';
 
 const demoChatResponses: Record<string, string> = {
   'default': "I'm CORE, your AI business manager. I can help you manage leads, automate tasks, and provide insights about your business. What would you like to know?",
@@ -181,23 +168,12 @@ export const MobileExperience = () => {
   };
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-mogul-dark text-white md:hidden">
-      <Player
-        autoplay
-        loop
-        src={signalPulseAnimation}
-        className="pointer-events-none fixed top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 opacity-10 blur-xl"
-      />
+    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory overscroll-none bg-mogul-dark text-white md:hidden">
       
       {/* SECTION 1: THE HOOK */}
       <SnapSection className="bg-mogul-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent opacity-50" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-10 text-center"
-        >
+        <div className="absolute inset-0 bg-gradient-to-b from-neon-blue/5 to-transparent" />
+        <div className="relative z-10 text-center">
           <h1 className="text-3xl font-bold leading-tight mb-6">
             I know you are tired of <br />
             <span className="text-gray-400">having to remember</span>
@@ -208,28 +184,18 @@ export const MobileExperience = () => {
             </h2>
             <p className="text-gray-400 mt-2">are available today.</p>
           </div>
-          <p className="text-sm text-gray-500 uppercase tracking-widest animate-pulse">
+          <p className="text-sm text-gray-500 uppercase tracking-widest">
             Scroll to Discover
           </p>
-          <motion.div 
-            animate={{ y: [0, 10, 0] }} 
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mt-4"
-          >
+          <div className="mt-4 animate-bounce">
             <ArrowRight className="w-6 h-6 mx-auto transform rotate-90 text-neon-blue" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </SnapSection>
 
       {/* SECTION 2: MEET CORE - Interactive Cards */}
       <SnapSection className="bg-mogul-navy">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-neon-purple/20 rounded-full blur-[100px]" />
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 w-full"
-        >
+        <div className="relative z-10 w-full">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 mb-6">
             <Sparkles className="w-4 h-4 text-neon-purple" />
             <span className="text-xs text-gray-300">AI-Native Business Manager</span>
@@ -244,36 +210,29 @@ export const MobileExperience = () => {
           </p>
 
           <div className="grid grid-cols-2 gap-3">
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={() => setActiveModal('dataSources')}
-              className="bg-mogul-card border border-white/10 p-4 rounded-xl text-center hover:border-neon-blue/50 transition-colors group"
+              className="bg-mogul-card border border-white/10 p-4 rounded-xl text-center active:scale-95 transition-transform"
             >
-              <Brain className="w-8 h-8 text-neon-blue mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <Brain className="w-8 h-8 text-neon-blue mx-auto mb-2" />
               <span className="text-xs text-gray-400">35 Data Sources</span>
               <p className="text-[10px] text-neon-blue mt-1">Tap to explore →</p>
-            </motion.button>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+            </button>
+            <button
               onClick={() => setActiveModal('contextEngine')}
-              className="bg-mogul-card border border-white/10 p-4 rounded-xl text-center hover:border-neon-purple/50 transition-colors group"
+              className="bg-mogul-card border border-white/10 p-4 rounded-xl text-center active:scale-95 transition-transform"
             >
-              <Bot className="w-8 h-8 text-neon-purple mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <Bot className="w-8 h-8 text-neon-purple mx-auto mb-2" />
               <span className="text-xs text-gray-400">Context Engine</span>
               <p className="text-[10px] text-neon-purple mt-1">Tap to explore →</p>
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 3: INTELLIGENCE - Chat Demo */}
       <SnapSection>
-        <motion.div 
-          initial={{ x: -50, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", bounce: 0.4 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h3 className="text-2xl font-bold mb-4 text-center">Intuitive Intelligence</h3>
           <p className="text-xs text-gray-400 text-center mb-6">Try asking CORE a question below</p>
           
@@ -282,10 +241,8 @@ export const MobileExperience = () => {
             {/* Chat Messages */}
             <div className="h-48 overflow-y-auto p-4 space-y-3">
               {chatMessages.map((msg, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`max-w-[85%] rounded-xl p-3 text-sm ${
@@ -295,7 +252,7 @@ export const MobileExperience = () => {
                   }`}>
                     {msg.content}
                   </div>
-                </motion.div>
+                </div>
               ))}
               {isTyping && (
                 <div className="flex justify-start">
@@ -339,7 +296,7 @@ export const MobileExperience = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 4: FEATURES - Expandable Cards */}
@@ -350,14 +307,10 @@ export const MobileExperience = () => {
           
           <div className="space-y-3">
             {/* Live Calling */}
-            <motion.div 
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              layout
-            >
+            <div>
               <button
                 onClick={() => setExpandedFeature(expandedFeature === 'calling' ? null : 'calling')}
-                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-green-500/30 transition-colors"
+                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
               >
                 <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 flex-shrink-0">
                   <Phone className="w-6 h-6" />
@@ -366,39 +319,25 @@ export const MobileExperience = () => {
                   <h4 className="font-bold">Live Calling Mode</h4>
                   <p className="text-xs text-gray-400">Real-time transcription & tips</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedFeature === 'calling' ? 'rotate-90' : ''}`} />
+                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedFeature === 'calling' ? 'rotate-90' : ''}`} />
               </button>
-              <AnimatePresence>
-                {expandedFeature === 'calling' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-green-500/5 border border-green-500/20 rounded-xl p-4 mt-2 space-y-2">
-                      {featureDetails.calling.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                          <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                          {f}
-                        </div>
-                      ))}
+              {expandedFeature === 'calling' && (
+                <div className="bg-green-500/5 border border-green-500/20 rounded-xl p-4 mt-2 space-y-2">
+                  {featureDetails.calling.features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      {f}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Voice Automations */}
-            <motion.div 
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              layout
-            >
+            <div>
               <button
                 onClick={() => setExpandedFeature(expandedFeature === 'automations' ? null : 'automations')}
-                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-orange-500/30 transition-colors"
+                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
               >
                 <div className="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 flex-shrink-0">
                   <Zap className="w-6 h-6" />
@@ -407,39 +346,25 @@ export const MobileExperience = () => {
                   <h4 className="font-bold">Voice Automations</h4>
                   <p className="text-xs text-gray-400">"Hey CORE, message all new leads..."</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedFeature === 'automations' ? 'rotate-90' : ''}`} />
+                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedFeature === 'automations' ? 'rotate-90' : ''}`} />
               </button>
-              <AnimatePresence>
-                {expandedFeature === 'automations' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 mt-2 space-y-2">
-                      {featureDetails.automations.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                          <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                          {f}
-                        </div>
-                      ))}
+              {expandedFeature === 'automations' && (
+                <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 mt-2 space-y-2">
+                  {featureDetails.automations.features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                      {f}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Smart Messaging */}
-            <motion.div 
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              layout
-            >
+            <div>
               <button
                 onClick={() => setExpandedFeature(expandedFeature === 'messaging' ? null : 'messaging')}
-                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-purple-500/30 transition-colors"
+                className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
               >
                 <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 flex-shrink-0">
                   <MessageSquare className="w-6 h-6" />
@@ -448,45 +373,31 @@ export const MobileExperience = () => {
                   <h4 className="font-bold">Smart Messaging</h4>
                   <p className="text-xs text-gray-400">Unified inbox with AI drafts</p>
                 </div>
-                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedFeature === 'messaging' ? 'rotate-90' : ''}`} />
+                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedFeature === 'messaging' ? 'rotate-90' : ''}`} />
               </button>
-              <AnimatePresence>
-                {expandedFeature === 'messaging' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4 mt-2 space-y-2">
-                      {featureDetails.messaging.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
-                          <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                          {f}
-                        </div>
-                      ))}
+              {expandedFeature === 'messaging' && (
+                <div className="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4 mt-2 space-y-2">
+                  {featureDetails.messaging.features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
+                      {f}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </SnapSection>
 
       {/* SECTION 5: PROOF & CTA */}
-      <SnapSection className="bg-gradient-to-b from-mogul-dark to-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="text-center w-full"
-        >
+      <SnapSection className="bg-mogul-navy">
+        <div className="text-center w-full">
           <div className="mb-8">
             <h3 className="text-xl font-bold mb-4">Don't take our word for it</h3>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={handleCaseStudyClick}
-              className="w-full bg-mogul-card border border-white/10 rounded-xl p-6 relative overflow-hidden group hover:border-neon-blue/30 transition-colors"
+              className="w-full bg-mogul-card border border-white/10 rounded-xl p-6 relative overflow-hidden active:scale-95 transition-transform"
             >
               <div className="absolute -top-3 -left-3 bg-neon-blue text-black text-xs font-bold px-3 py-1 rounded-full">
                 CASE STUDY
@@ -494,33 +405,36 @@ export const MobileExperience = () => {
               <img 
                 src="/rmtv-logo.png" 
                 alt="Respect Music TV" 
-                className="h-10 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity"
+                className="h-10 mx-auto mb-4 opacity-80"
               />
               <p className="text-sm text-gray-400 italic mb-4">
                 "Mogul didn't just build what we asked for—they understood our vision and 10x'd it."
               </p>
               <div className="flex items-center justify-center gap-2 text-neon-blue text-sm font-medium">
                 <span>View Full Case Study</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </div>
-            </motion.button>
+            </button>
           </div>
 
           <h2 className="text-3xl font-bold mb-6">
             Ready to <span className="text-neon-blue">Transform?</span>
           </h2>
 
-          <Link
-            to="/book-audit"
-            className="w-full block bg-gradient-to-r from-neon-blue to-neon-purple text-black font-bold text-lg py-4 rounded-xl mb-4 hover:scale-105 transition-transform"
+          <button
+            onClick={() => navigate('/book-audit')}
+            className="w-full block bg-gradient-to-r from-neon-blue to-neon-purple text-black font-bold text-lg py-4 rounded-xl mb-4 active:scale-95 transition-transform"
           >
             Book FREE Audit
-          </Link>
+          </button>
           
-          <Link to="/core" className="text-sm text-gray-400 hover:text-white transition-colors">
+          <button 
+            onClick={() => navigate('/core')} 
+            className="text-sm text-gray-400 active:text-white transition-colors"
+          >
             Learn more about CORE →
-          </Link>
-        </motion.div>
+          </button>
+        </div>
       </SnapSection>
 
       {/* MODALS */}
@@ -534,11 +448,8 @@ export const MobileExperience = () => {
         </p>
         <div className="space-y-3">
           {dataSourceCategories.map((cat, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
               className="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/10"
             >
               <div className="w-10 h-10 rounded-lg bg-neon-blue/10 flex items-center justify-center">
@@ -548,7 +459,7 @@ export const MobileExperience = () => {
                 <h4 className="text-sm font-medium text-white">{cat.label}</h4>
                 <p className="text-xs text-gray-500">{cat.desc}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </GlassModal>
@@ -563,16 +474,13 @@ export const MobileExperience = () => {
         </p>
         <div className="space-y-3">
           {contextEngineFeatures.map((feat, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
               className="p-3 bg-white/5 rounded-lg border border-white/10"
             >
               <h4 className="text-sm font-medium text-neon-purple mb-1">{feat.title}</h4>
               <p className="text-xs text-gray-400">{feat.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
         <div className="mt-4 p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20">

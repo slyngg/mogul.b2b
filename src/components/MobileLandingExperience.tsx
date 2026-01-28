@@ -1,6 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Player } from '@lottiefiles/react-lottie-player';
 import { useState } from 'react';
 import { 
   ArrowRight, 
@@ -21,7 +19,7 @@ import {
 
 const SnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
-    <section className={`min-h-[100dvh] w-full snap-start flex flex-col items-center justify-center p-6 pt-20 pb-12 relative overflow-hidden ${className}`}>
+    <section className={`h-[100dvh] w-full snap-start snap-always flex flex-col items-center justify-center p-6 relative overflow-hidden ${className}`}>
       {children}
     </section>
   );
@@ -60,7 +58,6 @@ const services = [
   },
 ];
 
-const signalPulseAnimation = 'https://assets10.lottiefiles.com/packages/lf20_jk6c1n2n.json';
 
 export const MobileLandingExperience = () => {
   const navigate = useNavigate();
@@ -76,32 +73,16 @@ export const MobileLandingExperience = () => {
   };
 
   return (
-    <div className="min-h-[100dvh] w-full overflow-y-auto snap-y snap-proximity scroll-smooth bg-mogul-dark text-white md:hidden">
-      <Player
-        autoplay
-        loop
-        src={signalPulseAnimation}
-        className="pointer-events-none fixed top-1/2 left-1/2 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 opacity-10 blur-xl"
-      />
+    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory overscroll-none bg-mogul-dark text-white md:hidden">
       
       {/* SECTION 1: HERO */}
       <SnapSection className="bg-mogul-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent opacity-50" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-10 text-center w-full"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-6"
-          >
+        <div className="absolute inset-0 bg-gradient-to-b from-neon-blue/5 to-transparent" />
+        <div className="relative z-10 text-center w-full">
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-6">
             <Sparkles className="w-4 h-4 text-neon-blue" />
             <span className="text-xs text-gray-300">Full-Stack Development Agency</span>
-          </motion.div>
+          </div>
 
           <h1 className="text-4xl font-bold leading-tight mb-4">
             Build.{' '}
@@ -122,33 +103,22 @@ export const MobileLandingExperience = () => {
             Book FREE Audit
           </button>
 
-          <motion.div 
-            animate={{ y: [0, 10, 0] }} 
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mt-6"
-          >
+          <div className="mt-6 animate-bounce">
             <ArrowRight className="w-6 h-6 mx-auto transform rotate-90 text-neon-blue" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </SnapSection>
 
       {/* SECTION 2: STATS */}
       <SnapSection className="bg-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-2xl font-bold text-center mb-2">Real Results</h2>
           <p className="text-gray-400 text-center text-sm mb-8">What our clients experience</p>
 
           <div className="space-y-4">
             {stats.map((stat, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ x: -50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
                 className="bg-mogul-card border border-white/10 rounded-xl p-5 flex items-center gap-4"
               >
                 <div className={`w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center ${stat.color}`}>
@@ -158,10 +128,10 @@ export const MobileLandingExperience = () => {
                   <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 3: SERVICES */}
@@ -171,17 +141,11 @@ export const MobileLandingExperience = () => {
           <p className="text-gray-400 text-center text-sm mb-6">Tap to explore each service</p>
 
           <div className="space-y-3">
-            {services.map((service, i) => (
-              <motion.div
-                key={service.id}
-                initial={{ x: 50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-                layout
-              >
+            {services.map((service) => (
+              <div key={service.id}>
                 <button
                   onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
-                  className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 hover:border-white/20 transition-colors"
+                  className="w-full bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4 active:bg-white/5 transition-colors"
                 >
                   <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${service.color} p-0.5 flex-shrink-0`}>
                     <div className="w-full h-full bg-mogul-card rounded-lg flex items-center justify-center">
@@ -192,28 +156,19 @@ export const MobileLandingExperience = () => {
                     <h4 className="font-bold text-sm">{service.title}</h4>
                     <p className="text-xs text-gray-400">{service.description}</p>
                   </div>
-                  <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${expandedService === service.id ? 'rotate-90' : ''}`} />
+                  <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedService === service.id ? 'rotate-90' : ''}`} />
                 </button>
-                <AnimatePresence>
-                  {expandedService === service.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className={`bg-gradient-to-br ${service.color} bg-opacity-5 border border-white/10 rounded-xl p-4 mt-2 space-y-2`}>
-                        {service.features.map((f, j) => (
-                          <div key={j} className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-white flex-shrink-0" />
-                            {f}
-                          </div>
-                        ))}
+                {expandedService === service.id && (
+                  <div className={`bg-white/5 border border-white/10 rounded-xl p-4 mt-2 space-y-2`}>
+                    {service.features.map((f, j) => (
+                      <div key={j} className="flex items-center gap-2 text-sm text-gray-300">
+                        <Check className="w-4 h-4 text-neon-blue flex-shrink-0" />
+                        {f}
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
@@ -221,11 +176,7 @@ export const MobileLandingExperience = () => {
 
       {/* SECTION 4: CORE PREVIEW */}
       <SnapSection className="bg-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="w-full text-center"
-        >
+        <div className="w-full text-center">
           <div className="inline-flex items-center gap-2 bg-neon-purple/10 border border-neon-purple/20 rounded-full px-3 py-1 mb-4">
             <Bot className="w-4 h-4 text-neon-purple" />
             <span className="text-xs text-neon-purple">Coming Soon</span>
@@ -268,21 +219,17 @@ export const MobileLandingExperience = () => {
 
           <button
             onClick={() => handleNavigate('/core')}
-            className="w-full bg-gradient-to-r from-neon-blue to-neon-purple text-black font-bold py-3 rounded-xl flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-neon-blue to-neon-purple text-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform"
           >
             Explore CORE
             <ArrowRight className="w-4 h-4" />
           </button>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 5: SOCIAL PROOF */}
       <SnapSection>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-2xl font-bold text-center mb-6">Trusted By Founders</h2>
 
           <button
@@ -327,16 +274,12 @@ export const MobileLandingExperience = () => {
               <div className="text-xs text-gray-500">300% ROI</div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 6: CTA */}
-      <SnapSection className="bg-gradient-to-b from-mogul-dark to-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="text-center w-full"
-        >
+      <SnapSection className="bg-mogul-navy">
+        <div className="text-center w-full">
           <h2 className="text-3xl font-bold mb-4">
             Ready to{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">
@@ -358,11 +301,11 @@ export const MobileLandingExperience = () => {
           
           <button
             onClick={() => handleNavigate('/careers')}
-            className="text-sm text-gray-400 hover:text-white transition-colors"
+            className="text-sm text-gray-400 active:text-white transition-colors"
           >
             We're hiring closers →
           </button>
-        </motion.div>
+        </div>
       </SnapSection>
     </div>
   );

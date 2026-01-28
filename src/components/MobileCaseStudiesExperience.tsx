@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight, 
   ExternalLink, 
@@ -20,7 +19,7 @@ import {
 
 const SnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
-    <section className={`min-h-screen w-full snap-start flex flex-col items-center justify-center p-6 pt-24 pb-12 relative overflow-hidden ${className}`}>
+    <section className={`h-[100dvh] w-full snap-start snap-always flex flex-col items-center justify-center p-6 relative overflow-hidden ${className}`}>
       {children}
     </section>
   );
@@ -64,26 +63,17 @@ export const MobileCaseStudiesExperience = () => {
   };
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-mogul-dark text-white md:hidden">
+    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory overscroll-none bg-mogul-dark text-white md:hidden">
       
       {/* SECTION 1: HEADER - Student-OS Hero */}
       <SnapSection className="bg-mogul-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-600/15 via-purple-600/10 to-transparent opacity-70" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-10 text-center w-full"
-        >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-xs font-medium tracking-wider uppercase mb-4 block"
-          >
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/5 to-transparent" />
+        <div className="relative z-10 text-center w-full">
+          <span className="text-xs font-medium tracking-wider uppercase mb-4 block">
             <span className="px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full">
               Mogul's Flagship Venture
             </span>
-          </motion.span>
+          </span>
 
           <h1 className="text-3xl font-bold leading-tight mb-2 mt-4 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
             Student-OS
@@ -113,22 +103,15 @@ export const MobileCaseStudiesExperience = () => {
             </a>
           </div>
 
-          <motion.div 
-            animate={{ y: [0, 10, 0] }} 
-            transition={{ duration: 2, repeat: Infinity }}
-          >
+          <div className="animate-bounce">
             <ArrowRight className="w-6 h-6 mx-auto transform rotate-90 text-blue-400" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </SnapSection>
 
       {/* SECTION 2: THE CHALLENGE */}
       <SnapSection className="bg-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-xl font-bold text-center mb-6">The Challenge</h2>
 
           <div className="bg-mogul-card border border-white/10 rounded-xl p-5 mb-6">
@@ -160,16 +143,12 @@ export const MobileCaseStudiesExperience = () => {
               </ul>
             </div>
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 3: THE SOLUTION */}
       <SnapSection>
-        <motion.div 
-          initial={{ x: -50, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-xl font-bold text-center mb-6">Our Solution</h2>
 
           <p className="text-gray-400 text-sm text-center mb-6">
@@ -178,71 +157,54 @@ export const MobileCaseStudiesExperience = () => {
 
           <div className="space-y-2">
             {coreFeatures.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ x: -30, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-3 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-lg p-3"
+                className="flex items-center gap-3 bg-blue-600/5 border border-blue-500/20 rounded-lg p-3"
               >
                 <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
                 <span className="text-sm text-gray-300">{item}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 4: AGENT SWARM */}
       <SnapSection className="bg-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-xl font-bold text-center mb-2">6-Agent Report Builder</h2>
           <p className="text-gray-400 text-sm text-center mb-6">AI swarm that writes in your voice</p>
 
           <div className="grid grid-cols-2 gap-3 mb-6">
             {agentSwarm.map((agent, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ delay: i * 0.05 }}
-                className="bg-gradient-to-br from-orange-600/10 to-red-600/10 border border-orange-500/20 rounded-xl p-3 text-center"
+                className="bg-orange-600/5 border border-orange-500/20 rounded-xl p-3 text-center"
               >
                 <agent.icon className="w-5 h-5 mx-auto mb-1 text-orange-400" />
                 <div className="text-white text-sm font-semibold">{agent.name}</div>
                 <div className="text-orange-400 text-[10px]">{agent.model}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 5: RESULTS */}
       <SnapSection>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full"
-        >
+        <div className="w-full">
           <h2 className="text-xl font-bold text-center mb-6">Key Metrics</h2>
 
           <div className="grid grid-cols-2 gap-3 mb-6">
             {results.map((result, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-xl p-4 text-center"
+                className="bg-blue-600/5 border border-blue-500/20 rounded-xl p-4 text-center"
               >
                 <result.icon className={`w-6 h-6 mx-auto mb-2 ${result.color}`} />
                 <div className={`text-2xl font-bold ${result.color}`}>{result.value}</div>
                 <div className="text-xs text-gray-500">{result.metric}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -250,21 +212,17 @@ export const MobileCaseStudiesExperience = () => {
             href="https://student-os.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl py-3 text-sm font-medium"
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl py-3 text-sm font-medium active:scale-95 transition-transform"
           >
             Visit Live Site
             <ExternalLink className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </SnapSection>
 
       {/* SECTION 6: TESTIMONIAL & CTA */}
-      <SnapSection className="bg-gradient-to-b from-mogul-dark to-mogul-navy">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className="w-full text-center"
-        >
+      <SnapSection className="bg-mogul-navy">
+        <div className="w-full text-center">
           <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-xl p-6 mb-8">
             <Quote className="w-8 h-8 text-blue-400 mx-auto mb-4 opacity-50" />
             <blockquote className="text-lg text-white font-medium mb-4 leading-relaxed">
@@ -289,22 +247,22 @@ export const MobileCaseStudiesExperience = () => {
             Whether you need to fix holes in your existing system or build something entirely new.
           </p>
 
-          <Link
-            to="/book-audit"
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl mb-4"
+          <button
+            onClick={() => handleNavigate('/book-audit')}
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl mb-4 active:scale-95 transition-transform"
           >
             <Calendar className="w-5 h-5" />
             Book FREE Audit
             <ArrowRight className="w-5 h-5" />
-          </Link>
+          </button>
           
           <button
             onClick={() => handleNavigate('/')}
-            className="text-sm text-gray-400 hover:text-white transition-colors"
+            className="text-sm text-gray-400 active:text-white transition-colors"
           >
             ← Back to Home
           </button>
-        </motion.div>
+        </div>
       </SnapSection>
     </div>
   );

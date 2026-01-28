@@ -13,7 +13,8 @@ import { useEffect } from 'react';
 
 function AppContent() {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const cinematicPages = ['/', '/book-audit', '/core', '/careers', '/case-studies'];
+  const isCinematicPage = cinematicPages.includes(location.pathname);
 
   // Enable View Transitions API
   useEffect(() => {
@@ -35,8 +36,8 @@ function AppContent() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
       </Routes>
-      {/* Hide footer on mobile home page to prevent scroll issues */}
-      <div className={isHomePage ? 'hidden md:block' : ''}>
+      {/* Hide footer on mobile for cinematic pages to prevent scroll issues */}
+      <div className={isCinematicPage ? 'hidden md:block' : ''}>
         <Footer />
       </div>
     </div>
