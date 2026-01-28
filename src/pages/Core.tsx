@@ -561,7 +561,7 @@ export const Core = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
-                href="mailto:info@mogul.b2b"
+                href="mailto:mogulmoretti@gmail.com"
                 className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 rounded-xl hover:bg-white/5 transition-colors"
               >
                 Contact Sales

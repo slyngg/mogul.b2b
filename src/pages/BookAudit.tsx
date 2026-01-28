@@ -34,35 +34,50 @@ export const BookAudit = () => {
 
   // Load Cal.com embed script
   useEffect(() => {
-    (function (C: any, A: string, L: string) {
-      if (C.Cal) {
+    const win = window as any;
+    
+    // If Cal is already loaded and initialized, just render the inline embed
+    if (win.Cal && win.Cal.loaded) {
+      win.Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink: "mogulb2b/free-audit",
+        config: { theme: "dark" }
+      });
+      setCalLoaded(true);
+      return;
+    }
+
+    // Load the Cal.com embed script
+    const script = document.createElement('script');
+    script.src = "https://app.cal.com/embed/embed.js";
+    script.async = true;
+    
+    script.onload = () => {
+      const Cal = win.Cal;
+      if (Cal) {
+        Cal("init", { origin: "https://cal.com" });
+        Cal("inline", {
+          elementOrSelector: "#cal-embed",
+          calLink: "mogulb2b/free-audit",
+          config: { theme: "dark" }
+        });
+        Cal("ui", {
+          theme: "dark",
+          styles: { branding: { brandColor: "#00e5ff" } },
+          hideEventTypeDetails: false
+        });
         setCalLoaded(true);
-        return;
       }
-      C.Cal = function () {
-        var cal = C.Cal;
-        var ar = arguments;
-        if (!cal.loaded) {
-          cal.q = cal.q || [];
-          cal.q.push(ar);
-        } else {
-          cal.q.push(ar);
-        }
-      };
-      C.Cal.ns = L;
-      C.Cal.q = C.Cal.q || [];
+    };
+    
+    document.head.appendChild(script);
 
-      const d = C.document;
-      const script = d.createElement('script');
-      script.src = A;
-      script.async = true;
-      script.onload = () => {
-        setCalLoaded(true);
-      };
-      d.head.appendChild(script);
-
-      C.Cal("init", { origin: "https://cal.com" });
-    })(window, "https://app.cal.com/embed/embed.js", "Cal");
+    return () => {
+      // Cleanup if component unmounts
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
   }, []);
 
   return (

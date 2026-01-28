@@ -192,11 +192,11 @@ export const Privacy = () => {
                 If you have any questions about this Privacy Policy or our data practices, please contact us at:
               </p>
               <a 
-                href="mailto:info@mogul.b2b" 
+                href="mailto:mogulmoretti@gmail.com" 
                 className="inline-flex items-center gap-2 text-neon-blue hover:text-neon-cyan transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@mogul.b2b
+                mogulmoretti@gmail.com
               </a>
             </div>
           </section>

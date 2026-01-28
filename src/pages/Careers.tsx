@@ -73,7 +73,7 @@ export const Careers = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link for hr@mogul.b2b
+    // Create mailto link for mogulmoretti@gmail.com
     const subject = encodeURIComponent(`MOGUL - E-CAS Application - ${formData.fullName}`);
     const body = encodeURIComponent(`
 MOGUL
@@ -89,7 +89,7 @@ ${formData.proofOfPerformance}
     `);
 
     // Open email client
-    window.location.href = `mailto:hr@mogul.b2b?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:mogulmoretti@gmail.com?subject=${subject}&body=${body}`;
 
     // Simulate submission
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -420,8 +420,8 @@ ${formData.proofOfPerformance}
           >
             <p>
               Questions?{' '}
-              <a href="mailto:hr@mogul.b2b" className="text-neon-purple hover:text-neon-blue transition-colors">
-                hr@mogul.b2b
+              <a href="mailto:mogulmoretti@gmail.com" className="text-neon-purple hover:text-neon-blue transition-colors">
+                mogulmoretti@gmail.com
               </a>
             </p>
           </motion.div>

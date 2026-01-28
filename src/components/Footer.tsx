@@ -10,7 +10,7 @@ const footerLinks = {
   ],
   company: [
     { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: 'mailto:info@mogul.b2b' },
+    { name: 'Contact', href: 'mailto:mogulmoretti@gmail.com' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
@@ -116,18 +116,11 @@ export const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3 text-sm">
               <a 
-                href="mailto:info@mogul.b2b" 
+                href="mailto:mogulmoretti@gmail.com" 
                 className="flex items-center gap-2 text-gray-400 hover:text-neon-blue transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@mogul.b2b
-              </a>
-              <a 
-                href="mailto:hr@mogul.b2b" 
-                className="flex items-center gap-2 text-gray-400 hover:text-neon-blue transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                hr@mogul.b2b
+                mogulmoretti@gmail.com
               </a>
             </div>
 

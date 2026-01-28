@@ -100,7 +100,7 @@ Proof of Performance:
 ${formData.proofOfPerformance}
     `);
 
-    window.location.href = `mailto:hr@mogul.b2b?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:mogulmoretti@gmail.com?subject=${subject}&body=${body}`;
     await new Promise(resolve => setTimeout(resolve, 1500));
     setIsSubmitted(true);
     setIsSubmitting(false);
@@ -355,7 +355,7 @@ ${formData.proofOfPerformance}
                 <ArrowRight className="w-5 h-5" />
               </button>
               <p className="text-gray-500 text-xs mt-4">
-                Questions? <a href="mailto:hr@mogul.b2b" className="text-neon-purple">hr@mogul.b2b</a>
+                Questions? <a href="mailto:mogulmoretti@gmail.com" className="text-neon-purple">mogulmoretti@gmail.com</a>
               </p>
             </div>
           ) : (

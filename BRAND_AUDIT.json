@@ -1,0 +1,389 @@
+{
+  "metadata": {
+    "generated": "2026-01-27",
+    "source": "mogul.b2b / corecrm.us codebase analysis",
+    "purpose": "Marketing Asset Creation"
+  },
+  "brand_identity": {
+    "brand_name": "Mogul",
+    "legal_entity": "Mogul LLC",
+    "taglines": [
+      "Build. Scale. Dominate.",
+      "Engineering the future of business operations",
+      "We build systems that scale",
+      "Your vision, engineered to scale",
+      "Engineering Precision. Designer Soul."
+    ],
+    "mission_statement": "We bring founder's visions to reality. Custom business systems built from scratch, or we fix the holes in your existing one.",
+    "value_proposition": "Transform manual chaos into scalable enterprise with full-stack digital ecosystems—from custom CRMs to automated client acquisition pipelines.",
+    "brand_voice": "Bold, technical, founder-led, unapologetically confident, results-driven",
+    "brand_personality_traits": [
+      "Elite/Premium positioning",
+      "Technical excellence",
+      "Founder-to-founder authenticity",
+      "Results-obsessed",
+      "Transparent accountability",
+      "Revolutionary/disruptive"
+    ],
+    "target_audience": {
+      "primary": "Ambitious business owners/founders ready to scale",
+      "secondary": "Established companies with broken/manual systems",
+      "psychographics": [
+        "Tired of managing chaos manually",
+        "Drowning in spreadsheets",
+        "Want to generate revenue in their sleep",
+        "Value premium solutions over cheap fixes",
+        "Willing to invest $5k-$50k+ for transformation",
+        "Seek a partner, not a vendor"
+      ]
+    }
+  },
+  "visual_identity": {
+    "primary_colors": {
+      "hex_codes": ["#1877F2", "#00f0ff", "#7000ff"],
+      "color_names": ["Mogul Blue (Brand Primary)", "Neon Blue/Cyan (Accent)", "Neon Purple (Accent)"]
+    },
+    "secondary_colors": [
+      {"name": "Neon Cyan", "hex": "#00fff0"},
+      {"name": "Mogul Dark (Background)", "hex": "#0a0a0f"},
+      {"name": "Mogul Navy", "hex": "#11111a"},
+      {"name": "Mogul Card", "hex": "#161622"},
+      {"name": "Glass White", "hex": "rgba(255, 255, 255, 0.05)"}
+    ],
+    "typography": {
+      "headings": "Inter (Bold, Tracking Tighter)",
+      "body": "Inter (Regular)",
+      "accent": "Inter (Semibold)"
+    },
+    "logo_description": "Wordmark 'mogul' in lowercase, bold, tracking-tighter typography with Mogul Blue (#1877F2) color and animated breathing glow effect",
+    "logo_variations": [
+      "Primary: Blue wordmark on dark background",
+      "Footer: Larger 3xl version",
+      "Navbar: 2xl compact version"
+    ],
+    "visual_style": "Dark mode dominant, glassmorphism, neon gradients, animated particle backgrounds, flashlight hover effects, 3D tilt cards, border beam animations",
+    "icon_library": "Lucide React",
+    "imagery_style": "Abstract tech, gradient orbs, grid patterns, animated particles with connections, floating UI mockups, minimal/clean dashboard previews"
+  },
+  "services": {
+    "core_services": [
+      {
+        "service_name": "Full-Stack Applications",
+        "description": "State-of-the-art technology with innovative automations. Complete systems from frontend to backend.",
+        "key_features": ["SoTA tech", "Custom builds", "Mobile responsive", "Analytics setup"],
+        "price_range": "Starting at $5k (Foundation tier)",
+        "delivery_timeline": "Custom per project"
+      },
+      {
+        "service_name": "Revenue on Autopilot (Automation)",
+        "description": "Transform manual business into a running engine. Generate revenue in your sleep with intelligent automation.",
+        "key_features": ["24/7 operations", "Passive income", "AI-powered workflows", "Automated follow-ups"],
+        "price_range": "Starting at $15k (Growth tier)",
+        "delivery_timeline": "Custom per project"
+      },
+      {
+        "service_name": "CORE Platform",
+        "description": "AI-Native Business Manager combining CRM, ERP, and PM with 35 categories of contextual AI intelligence.",
+        "key_features": ["AI Contexting Engine", "Voice Command Automations", "Smart Messaging", "Live Calling Mode", "Activity Timeline"],
+        "price_range": "Early Access (via audit)",
+        "delivery_timeline": "Currently in development"
+      },
+      {
+        "service_name": "Flexible Architecture / BYO CRM",
+        "description": "Leverage CORE platform, custom backends, or bring your own CRM subscription—migration and integration handled.",
+        "key_features": ["CORE platform", "BYO CRM integration", "Migration services"],
+        "price_range": "Custom",
+        "delivery_timeline": "Varies"
+      }
+    ],
+    "pricing_tiers": [
+      {
+        "name": "Foundation",
+        "price": "Starting at $5k",
+        "description": "Perfect for businesses ready to digitize operations",
+        "features": ["Custom Web Application", "Basic CRM Integration", "Mobile Responsive", "Analytics Setup"],
+        "highlight": false
+      },
+      {
+        "name": "Growth",
+        "price": "Starting at $15k",
+        "description": "For scaling companies needing advanced automation",
+        "features": ["Everything in Foundation", "Advanced Automation Workflows", "Client Portal", "API Integrations", "Priority Support"],
+        "highlight": true
+      },
+      {
+        "name": "Dominate",
+        "price": "Custom",
+        "description": "Full-scale digital transformation and partnership",
+        "features": ["Full Stack Ecosystem", "AI Implementation", "Custom Mobile App", "Dedicated Engineer Team", "24/7 Monitoring"],
+        "highlight": false
+      }
+    ],
+    "specializations": [
+      "AI/ML Implementation",
+      "CRM Development",
+      "Business Automation",
+      "Full-Stack Web Applications",
+      "Client Portals",
+      "Lead Pipeline Automation",
+      "EdTech Platforms"
+    ],
+    "industries_served": [
+      "SaaS/Software",
+      "Real Estate",
+      "Healthcare",
+      "Marketing Agencies",
+      "Music & Entertainment",
+      "E-commerce",
+      "EdTech"
+    ],
+    "tech_stack_offered": {
+      "frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "backend": ["Node.js", "Next.js API Routes", "Custom APIs"],
+      "databases": ["MongoDB", "Vector databases"],
+      "ai_ml": ["DeepSeek Reasoner", "Gemini Pro", "Gemini Flash", "DeepSeek V3", "RAG Systems", "Multi-Agent AI Swarms"],
+      "infrastructure": ["AWS S3", "Cloudflare R2", "Vercel", "Clerk Auth", "Stripe", "Cal.com"]
+    }
+  },
+  "portfolio": {
+    "projects": [
+      {
+        "project_name": "Student-OS",
+        "client_name": "Mogul's Flagship Venture",
+        "project_type": "AI / EdTech / SaaS",
+        "industry": "Education Technology",
+        "problem_solved": "Students waste countless hours re-reading textbooks without retention, creating study materials manually, writing reports from scratch, and managing materials across courses.",
+        "solution_summary": "Router-Centric RAG system that ingests documents, creates searchable 'compressed brain' with vector embeddings, routes questions to optimal AI models, and generates study artifacts automatically via 6-agent AI swarm.",
+        "tech_stack_used": ["DeepSeek Reasoner", "Gemini Pro", "Gemini Flash", "DeepSeek V3", "Vector embeddings", "SHA-256 deduplication", "Cross-encoder reranking"],
+        "key_features": [
+          "6-Agent Report Builder Swarm",
+          "Global SHA-256 Deduplication (99% compute savings)",
+          "Small-to-Big Retrieval with cross-encoder reranking",
+          "Intelligent Intent Router across multiple LLMs",
+          "Style Fingerprinting (writes in student's voice)",
+          "Self-sustaining public library ecosystem"
+        ],
+        "results_metrics": ["99% Compute Savings", "6 AI Agents", "Infinite Public Library", "Pricing from $1.99"],
+        "testimonial": "This is the future of education—AI that actually understands how you learn and adapts to your style.",
+        "testimonial_author": "Cayden Moretti, Founder",
+        "live_url": "https://student-os.app",
+        "is_hero_project": true
+      },
+      {
+        "project_name": "Respect Music TV",
+        "client_name": "Respect Music TV",
+        "project_type": "Music Platform / Web Application",
+        "industry": "Music & Entertainment",
+        "problem_solved": "Needed a platform that could handle high-traffic streaming, artist management, and content curation while maintaining a premium aesthetic.",
+        "solution_summary": "Full-stack solution with custom CMS, optimized media delivery, and sleek dark-mode interface.",
+        "tech_stack_used": ["Custom CMS", "Optimized media delivery"],
+        "key_features": ["Artist showcase", "Content management", "Premium dark-mode UI"],
+        "results_metrics": ["6 weeks launch time", "98/100 performance score", "+340% user engagement", "<1.5s load time"],
+        "testimonial": "Mogul didn't just build what we asked for, they understood our vision and 10x'd it. The platform exceeded every expectation.",
+        "testimonial_author": "Founder, Respect Music TV",
+        "live_url": "https://respectmusictv.com",
+        "is_hero_project": false
+      },
+      {
+        "project_name": "Mike Leshore Audio Vault",
+        "client_name": "Mike Leshore",
+        "project_type": "E-commerce / Beat Licensing Platform",
+        "industry": "Music & E-commerce",
+        "problem_solved": "Needed complete beat licensing ecosystem with storefront and WCAG AAA-compliant admin panel for non-technical producer.",
+        "solution_summary": "Next.js 16 full-stack application with TypeScript, Tailwind, MongoDB, AWS S3/Cloudflare R2 storage, Clerk auth, Stripe payments, and 3-step upload wizard with auto-validation.",
+        "tech_stack_used": ["Next.js 16", "TypeScript", "Tailwind", "MongoDB", "AWS S3", "Cloudflare R2", "Clerk", "Stripe", "Zustand"],
+        "key_features": [
+          "WCAG AAA Accessibility",
+          "4-tier licensing system",
+          "3-step upload wizard with auto-validation",
+          "Global audio player (Zustand)",
+          "Auto BPM/key extraction"
+        ],
+        "results_metrics": ["WCAG AAA Accessibility", "4 License Tiers", "100% Auto QA", "3-step Upload"],
+        "testimonial": "Go buy your beats now! The platform Mogul built makes selling beats effortless with zero manual work.",
+        "testimonial_author": "Mike Leshore",
+        "live_url": "https://leshore.co",
+        "is_hero_project": false
+      }
+    ]
+  },
+  "founder_team": {
+    "founder": {
+      "name": "Cayden Moretti",
+      "title": "Founder",
+      "bio": "Technical founder building AI-powered business operating systems. Creator of Student-OS and the CORE platform.",
+      "background": ["Full-stack development expertise", "AI/ML implementation", "Business systems architecture"],
+      "skills": ["React/Next.js", "TypeScript", "AI/ML Integration", "RAG Systems", "Multi-Agent AI Architecture", "Business Automation"],
+      "social_links": {
+        "linkedin": "https://www.linkedin.com/in/mogulsolution/",
+        "twitter": "https://x.com/mogulsolution",
+        "github": null,
+        "instagram": "https://instagram.com/mogulsolutions"
+      },
+      "headshot_url": null
+    },
+    "team_size": "4-8 (actively recruiting)",
+    "team_structure": "Founder-led with contractor network + recruiting commission-based Elite Client Acquisition Specialists (E-CAS)"
+  },
+  "social_proof": {
+    "testimonials": [
+      {
+        "quote": "Mogul transformed our entire operation. We went from drowning in spreadsheets to having a crystal-clear view of every lead and deal. The ROI was visible within the first month.",
+        "author": "Sarah Chen",
+        "company": "TechFlow SaaS",
+        "role": "CEO"
+      },
+      {
+        "quote": "The custom CRM they built for us is exactly what we needed. Our agents close deals 60% faster now. Best investment we've made.",
+        "author": "Marcus Johnson",
+        "company": "Apex Real Estate",
+        "role": "Founder"
+      },
+      {
+        "quote": "Patient no-shows dropped by 75% after implementing their automated reminder system. The team at Mogul truly understands healthcare workflows.",
+        "author": "Emily Rodriguez",
+        "company": "HealthFirst Clinic",
+        "role": "Operations Director"
+      },
+      {
+        "quote": "Managing 200+ client accounts used to be a nightmare. Now our entire team operates from one dashboard. Game changer.",
+        "author": "David Park",
+        "company": "Velocity Marketing",
+        "role": "Managing Partner"
+      },
+      {
+        "quote": "The AI-powered lead scoring alone has increased our conversion rate by 3x. Mogul doesn't just build software, they build growth engines.",
+        "author": "Lisa Thompson",
+        "company": "CloudScale Inc",
+        "role": "VP of Sales"
+      },
+      {
+        "quote": "Their technical expertise is unmatched. They integrated with our existing systems seamlessly and the performance is incredible.",
+        "author": "James Wilson",
+        "company": "FinanceFlow",
+        "role": "CTO"
+      }
+    ],
+    "metrics": {
+      "revenue_generated": "$50M+",
+      "businesses_scaled": "100+",
+      "hours_saved_weekly": "40+",
+      "client_satisfaction": "99%",
+      "uptime": "99.9%",
+      "revenue_increase_avg": "300%",
+      "lead_conversion_improvement": "3x"
+    }
+  },
+  "usps": {
+    "primary_usp": "We bring founder's visions to reality—custom business systems built from scratch, or we fix the holes in your existing one.",
+    "secondary_usps": [
+      "Engineering Precision. Designer Soul.",
+      "AI-native business management with CORE platform",
+      "Revenue on Autopilot—generate income while you sleep",
+      "We don't hire. We partner.",
+      "Transparent pricing for measurable results"
+    ],
+    "differentiators": [
+      "Founder-led technical partner, not a commodity agency",
+      "In-house flagship products prove technical depth (Student-OS)",
+      "AI-first approach with multi-agent systems",
+      "Free audit model—no-obligation discovery",
+      "Results-based positioning with specific metrics"
+    ],
+    "proof_points": [
+      "$50M+ revenue generated for clients",
+      "100+ businesses transformed",
+      "40+ hours saved per week per client",
+      "99% client satisfaction",
+      "340% conversion increase (TechFlow case)",
+      "60% faster deal closing (Apex Real Estate)",
+      "75% reduction in no-shows (HealthFirst)",
+      "99% compute savings (Student-OS)"
+    ]
+  },
+  "content_messaging": {
+    "hero_headlines": [
+      "Build. Scale. Dominate.",
+      "Your vision, engineered to scale",
+      "Engineering Precision. Designer Soul.",
+      "Start the revolution",
+      "MOGUL: CORE",
+      "We Don't Hire. We Partner.",
+      "Visions Brought to Reality"
+    ],
+    "cta_buttons": [
+      "Book FREE Audit",
+      "View Our Work",
+      "Get Early Access",
+      "Watch Demo",
+      "Learn About CORE",
+      "Contact Sales"
+    ],
+    "power_words": [
+      "Dominate",
+      "Transform",
+      "Revolution",
+      "Elite",
+      "Proven",
+      "Guaranteed",
+      "Flagship",
+      "Intelligent",
+      "Native",
+      "Engineered",
+      "Scalable"
+    ]
+  },
+  "contact_conversion": {
+    "primary_cta": "Book FREE Audit",
+    "contact_methods": {
+      "email_general": "info@mogul.b2b",
+      "email_hr": "hr@mogul.b2b",
+      "calendar_link": "https://cal.com/mogulb2b/free-audit"
+    },
+    "conversion_flow": "Visitor → Browse case studies → Book FREE Audit → 30-min discovery call → Custom proposal → Engagement"
+  },
+  "student_os": {
+    "one_liner": "AI-Powered Academic Operating System with Multi-Agent Report Generation",
+    "tagline": "The Open Source University",
+    "problem_statement": "Students waste countless hours re-reading textbooks without retention, creating study materials manually, and writing reports from scratch.",
+    "solution_summary": "Router-Centric RAG system with 6-agent AI swarm that writes academic reports in the student's own voice.",
+    "key_features": [
+      "Global SHA-256 Deduplication (99% compute savings)",
+      "Small-to-Big Retrieval with cross-encoder reranking",
+      "Intelligent Intent Router across multiple LLMs",
+      "6-Agent Report Builder Swarm",
+      "Style Fingerprinting",
+      "Self-sustaining public library ecosystem"
+    ],
+    "agents": [
+      {"name": "Architect", "model": "DeepSeek Reasoner", "role": "Creates hierarchical outline with word count targets"},
+      {"name": "Miner", "model": "Gemini Flash", "role": "Extracts facts and citations from source materials"},
+      {"name": "Analyst", "model": "Gemini Pro", "role": "Generates chart specifications from numerical data"},
+      {"name": "Ghostwriter", "model": "Gemini Pro", "role": "Writes prose matching user's style fingerprint"},
+      {"name": "Professor", "model": "DeepSeek V3", "role": "Grades report against rubric, suggests fixes"},
+      {"name": "Style Analyzer", "model": "Gemini Flash", "role": "Analyzes user's writing sample to extract style guide"}
+    ],
+    "pricing": "From $1.99",
+    "live_url": "https://student-os.app",
+    "unique_claims": ["99% compute savings", "6-agent AI swarm", "Writes in student's voice"]
+  },
+  "social_media": {
+    "twitter": "https://x.com/mogulsolution",
+    "linkedin": "https://www.linkedin.com/in/mogulsolution/",
+    "instagram": "https://instagram.com/mogulsolutions"
+  },
+  "asset_inventory": {
+    "available": [
+      "/public/rmtv-logo.png (Respect Music TV client logo)",
+      "/public/vite.svg (favicon placeholder)",
+      "CSS-rendered mogul wordmark with glow animation"
+    ],
+    "missing_high_priority": [
+      "Founder headshot (Cayden Moretti)",
+      "Student-OS product screenshots",
+      "CORE platform mockups",
+      "Client logo collection",
+      "Video content/demos"
+    ]
+  }
+}
