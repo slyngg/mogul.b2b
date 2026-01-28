@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useState } from 'react';
 import { 
@@ -21,7 +21,7 @@ import {
 
 const SnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
-    <section className={`min-h-screen w-full snap-start flex flex-col items-center justify-center p-6 pt-24 pb-12 relative overflow-hidden ${className}`}>
+    <section className={`min-h-[100dvh] w-full snap-start flex flex-col items-center justify-center p-6 pt-20 pb-12 relative overflow-hidden ${className}`}>
       {children}
     </section>
   );
@@ -76,7 +76,7 @@ export const MobileLandingExperience = () => {
   };
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-mogul-dark text-white md:hidden">
+    <div className="min-h-[100dvh] w-full overflow-y-auto snap-y snap-proximity scroll-smooth bg-mogul-dark text-white md:hidden">
       <Player
         autoplay
         loop
@@ -115,12 +115,12 @@ export const MobileLandingExperience = () => {
             We turn founder visions into reality. Custom systems that generate revenue while you sleep.
           </p>
 
-          <Link
-            to="/book-audit"
-            className="w-full block bg-neon-blue text-black font-bold py-4 rounded-xl mb-4 hover:scale-105 transition-transform"
+          <button
+            onClick={() => handleNavigate('/book-audit')}
+            className="w-full block bg-neon-blue text-black font-bold py-4 rounded-xl mb-4 active:scale-95 transition-transform"
           >
             Book FREE Audit
-          </Link>
+          </button>
 
           <motion.div 
             animate={{ y: [0, 10, 0] }} 
@@ -349,12 +349,12 @@ export const MobileLandingExperience = () => {
             Book a free audit and discover where you're losing money. No commitment, just insights.
           </p>
 
-          <Link
-            to="/book-audit"
-            className="w-full block bg-neon-blue text-black font-bold text-lg py-4 rounded-xl mb-4 hover:scale-105 transition-transform"
+          <button
+            onClick={() => handleNavigate('/book-audit')}
+            className="w-full block bg-neon-blue text-black font-bold text-lg py-4 rounded-xl mb-4 active:scale-95 transition-transform"
           >
             Book FREE Audit
-          </Link>
+          </button>
           
           <button
             onClick={() => handleNavigate('/careers')}
