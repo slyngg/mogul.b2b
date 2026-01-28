@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -31,54 +31,6 @@ const benefits = [
 
 export const BookAudit = () => {
   const [calLoaded, setCalLoaded] = useState(false);
-
-  // Load Cal.com embed script
-  useEffect(() => {
-    const win = window as any;
-    
-    // If Cal is already loaded and initialized, just render the inline embed
-    if (win.Cal && win.Cal.loaded) {
-      win.Cal("inline", {
-        elementOrSelector: "#cal-embed",
-        calLink: "mogulb2b/free-audit",
-        config: { theme: "dark" }
-      });
-      setCalLoaded(true);
-      return;
-    }
-
-    // Load the Cal.com embed script
-    const script = document.createElement('script');
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    
-    script.onload = () => {
-      const Cal = win.Cal;
-      if (Cal) {
-        Cal("init", { origin: "https://cal.com" });
-        Cal("inline", {
-          elementOrSelector: "#cal-embed",
-          calLink: "mogulb2b/free-audit",
-          config: { theme: "dark" }
-        });
-        Cal("ui", {
-          theme: "dark",
-          styles: { branding: { brandColor: "#00e5ff" } },
-          hideEventTypeDetails: false
-        });
-        setCalLoaded(true);
-      }
-    };
-    
-    document.head.appendChild(script);
-
-    return () => {
-      // Cleanup if component unmounts
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -193,9 +145,10 @@ export const BookAudit = () => {
               className="min-h-[500px] rounded-xl overflow-hidden relative"
               style={{ backgroundColor: '#0a0a0f' }}
             >
-              <div
-                id="cal-embed"
-                style={{ width: '100%', height: '100%', minHeight: '500px' }}
+              <iframe
+                src="https://cal.com/mogulb2b/free-audit?embed=true&theme=dark"
+                className="w-full h-full min-h-[500px] border-0"
+                onLoad={() => setCalLoaded(true)}
               />
 
               {!calLoaded && (
