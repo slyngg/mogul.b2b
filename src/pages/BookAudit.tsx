@@ -7,8 +7,7 @@ import {
   CheckCircle2,
   Zap,
   Shield,
-  Users,
-  ArrowDown
+  Users
 } from 'lucide-react';
 
 const benefits = [
@@ -29,96 +28,69 @@ const benefits = [
   }
 ];
 
-const MobileSnapSection = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-  <section className={`h-[100dvh] w-full snap-start snap-always flex flex-col items-center justify-center p-6 relative ${className}`}>
-    {children}
-  </section>
-);
-
 const MobileBookAudit = () => {
   const [calLoaded, setCalLoaded] = useState(false);
 
   return (
-    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory overscroll-none bg-mogul-dark text-white md:hidden">
-      {/* Section 1: Hero */}
-      <MobileSnapSection className="bg-mogul-dark">
-        <div className="text-center w-full">
-          <div className="inline-flex items-center gap-2 bg-neon-blue/10 border border-neon-blue/20 rounded-full px-4 py-2 mb-6">
-            <Calendar className="w-4 h-4 text-neon-blue" />
-            <span className="text-sm text-neon-blue">100% Free</span>
-          </div>
-          
-          <h1 className="text-3xl font-bold mb-4">
-            Book Your <span className="text-neon-blue">FREE</span> Audit
-          </h1>
-          
-          <p className="text-gray-400 text-sm mb-8">
-            Let's identify the holes in your business and build a roadmap to fix them.
-          </p>
+    <div className="min-h-screen bg-mogul-dark text-white md:hidden pt-20 pb-8 px-4">
+      {/* Hero Section */}
+      <div className="text-center mb-6">
+        <div className="inline-flex items-center gap-2 bg-neon-blue/10 border border-neon-blue/20 rounded-full px-4 py-2 mb-4">
+          <Calendar className="w-4 h-4 text-neon-blue" />
+          <span className="text-sm text-neon-blue">100% Free</span>
+        </div>
+        
+        <h1 className="text-2xl font-bold mb-3">
+          Book Your <span className="text-neon-blue">FREE</span> Audit
+        </h1>
+        
+        <p className="text-gray-400 text-sm mb-4">
+          Let's identify the holes in your business and build a roadmap to fix them.
+        </p>
 
-          <div className="space-y-4 mb-8">
-            {benefits.map((benefit, i) => (
-              <div key={i} className="bg-mogul-card border border-white/10 rounded-xl p-4 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-neon-blue/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-5 h-5 text-neon-blue" />
-                </div>
-                <div className="text-left">
-                  <h3 className="font-semibold text-sm">{benefit.title}</h3>
-                </div>
-              </div>
-            ))}
+        <div className="flex justify-center gap-4 text-gray-500 text-xs">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-neon-blue" />
+            <span>30 min</span>
           </div>
-
-          <div className="flex justify-center gap-6 text-gray-500 text-xs mb-6">
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-neon-blue" />
-              <span>30 min</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-neon-blue" />
-              <span>No obligation</span>
-            </div>
-          </div>
-
-          <div className="animate-bounce">
-            <ArrowDown className="w-6 h-6 mx-auto text-neon-blue" />
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-neon-blue" />
+            <span>No obligation</span>
           </div>
         </div>
-      </MobileSnapSection>
+      </div>
 
-      {/* Section 2: Calendar */}
-      <MobileSnapSection className="bg-mogul-navy">
-        <div className="w-full h-full flex flex-col">
-          <h2 className="text-xl font-bold text-center mb-4 pt-4">Select a Time</h2>
+      {/* Calendar Section - Full width, no snap scroll interference */}
+      <div className="bg-mogul-card border border-white/10 rounded-2xl overflow-hidden relative">
+        <h2 className="text-lg font-bold text-center py-4 border-b border-white/10">Select a Time</h2>
+        
+        <div className="relative" style={{ height: 'calc(100vh - 280px)', minHeight: '450px' }}>
+          <iframe
+            src="https://cal.com/mogulb2b/free-audit?embed=true&theme=dark"
+            className="absolute inset-0 w-full h-full border-0"
+            allow="payment"
+            onLoad={() => setCalLoaded(true)}
+          />
           
-          <div className="flex-1 bg-mogul-card border border-white/10 rounded-2xl overflow-hidden relative">
-            <iframe
-              src="https://cal.com/mogulb2b/free-audit?embed=true&theme=dark"
-              className="w-full h-full border-0"
-              style={{ minHeight: '400px' }}
-              onLoad={() => setCalLoaded(true)}
-            />
-            
-            {!calLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center bg-mogul-card">
-                <div className="text-center">
-                  <div className="w-8 h-8 border-2 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-gray-400 text-sm">Loading calendar...</p>
-                </div>
+          {!calLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-mogul-card z-10">
+              <div className="text-center">
+                <div className="w-8 h-8 border-2 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-gray-400 text-sm">Loading calendar...</p>
               </div>
-            )}
-          </div>
-
-          <a
-            href="https://cal.com/mogulb2b/free-audit"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-center text-neon-blue text-sm py-4 active:text-neon-cyan"
-          >
-            Open in new tab <ArrowRight className="w-3 h-3 inline ml-1" />
-          </a>
+            </div>
+          )}
         </div>
-      </MobileSnapSection>
+      </div>
+
+      <a
+        href="https://cal.com/mogulb2b/free-audit"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-center text-neon-blue text-sm py-4"
+      >
+        Open in new tab <ArrowRight className="w-3 h-3 inline ml-1" />
+      </a>
     </div>
   );
 };
@@ -201,12 +173,13 @@ const DesktopBookAudit = () => {
             <h2 className="text-xl font-bold mb-6 text-center">Select a Time</h2>
 
             <div
-              className="min-h-[500px] rounded-xl overflow-hidden relative"
-              style={{ backgroundColor: '#0a0a0f' }}
+              className="rounded-xl overflow-hidden relative"
+              style={{ backgroundColor: '#0a0a0f', height: '550px' }}
             >
               <iframe
                 src="https://cal.com/mogulb2b/free-audit?embed=true&theme=dark"
-                className="w-full h-full min-h-[500px] border-0"
+                className="absolute inset-0 w-full h-full border-0"
+                allow="payment"
                 onLoad={() => setCalLoaded(true)}
               />
 
