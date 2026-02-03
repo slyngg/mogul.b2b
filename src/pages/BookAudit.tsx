@@ -169,11 +169,11 @@ const DesktopBookAudit = () => {
           </div>
 
           {/* Right Column - Cal.com Embed */}
-          <div className="bg-mogul-card border border-white/10 rounded-3xl p-6 md:p-8">
-            <h2 className="text-xl font-bold mb-6 text-center">Select a Time</h2>
-
+          <div>
+            <h2 className="text-xl font-bold mb-4 text-center">Select a Time</h2>
+            
             <div
-              className="rounded-xl overflow-hidden relative"
+              className="bg-mogul-card border border-white/10 rounded-3xl overflow-hidden relative"
               style={{ backgroundColor: '#0a0a0f', height: '550px' }}
             >
               <iframe
